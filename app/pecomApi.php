@@ -13,12 +13,17 @@ class pecomApi
     private $cityFrom, $cityTo, $weight, $width, $height, $length;
 
 
-    private $loginParams = [
-        'query' => [
-            'user' => 'saitgalin18@gmail.com',
-            'password' => 'CWi7VtiLxf',
-        ]
-    ];
+    private $token = 'Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E';
+
+    private function loginParams() {
+        return [
+            'json' => [
+                'login' => 'Aygiz_S',
+                'password' => '72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E',
+
+                ]
+        ];
+    }
 
     private function priceParams() {
         return [
@@ -44,26 +49,25 @@ class pecomApi
     {
         $this->client = new Client([
             'headers' => [
-                'Content-Type' => 'application/json',
-                'NrgApi-DevToken' => 'tE31cLTwBU148eABxQ89YPX3r1IfQtbeawxyWBy93ptIkhSe04jZY7s0gBhMdv6H',
+                'Content-Type' => 'application/json; charset=utf-8',
+                'Accept' => 'application/json',
+                'Authorization' => 'Basic 72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E'
             ],
         ]);
 
     }
 
 
+    public function login() {
 
+        $request = $this->client->post('https://kabinet.pecom.ru/api/v1/auth/profiledata');
 
-    public function login () {
-
-        $request = $this->client->get('https://api.sandbox.nrg-tk.ru/v3/login', $this->loginParams);
-
-        return $res = $request->getStatusCode();
+        return $request;
 
     }
 
     public function getCityId($cityTitle) {
-        $citiesResponse = $this->client->get('https://api.sandbox.nrg-tk.ru/v3/cities')->getBody()->getContents();
+        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/all');
 
         $cities = json_decode($citiesResponse);
 
@@ -73,7 +77,6 @@ class pecomApi
                 $cityId = $city->id;
             }
         }
-
 
 
 
@@ -90,7 +93,7 @@ class pecomApi
         $this->height = $height;
         $this->length = $length;
 
-        $response =  $this->client->post('https://api.sandbox.nrg-tk.ru/v3/price', $this->priceParams())->getBody();
+        $response =  $this->client->post('https://kabinet.pecom.ru/api/v1/calculator', $this->priceParams())->getBody();
 
         $json = json_decode($response);
         $json = $json->transfer[0];

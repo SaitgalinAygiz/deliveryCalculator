@@ -25,13 +25,23 @@ Vue.component('input-calc', require('./components/InputCalc.vue').default);
 Vue.component('results', require('./components/Results.vue').default);
 
 
+Object.defineProperty(Vue.prototype, '$bus',{
+    get() {
+        return this.$root.bus;
+    }
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+var bus = new Vue({}); // This empty Vue model will serve as our event bus.
 
 const app = new Vue({
     el: '#app',
+    data: {
+        bus: new Vue({})
+    },
     store
 });

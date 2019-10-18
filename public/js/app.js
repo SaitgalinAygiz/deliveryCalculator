@@ -1918,18 +1918,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       result: {
-        cityFrom: 500019972,
-        cityTo: 346,
-        weight: '',
-        width: '',
-        height: '',
-        length: ''
+        cityFrom: 'Москва',
+        cityTo: 'Санкт-Петербург',
+        weight: '1',
+        width: '1',
+        height: '1',
+        length: '1'
       }
     };
   },
   methods: {
     createResult: function createResult(result) {
       this.$store.dispatch('createResult', result);
+      this.$bus.$emit('sendCities', {
+        cityFrom: result.cityFrom,
+        cityTo: result.cityTo
+      });
     }
   },
   mounted: function mounted() {
@@ -1937,7 +1941,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     isValid: function isValid() {
-      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '';
+      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '' && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0 && this.result.width > 0;
     }
   }
 });
@@ -1997,11 +2001,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Results",
-  mounted: function mounted() {
-    this.$store.dispatch('fetchResult');
+  data: function data() {
+    return {
+      cityFrom: '',
+      cityTo: '',
+      hasResults: false
+    };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['results']))
-}); //{{ result.logo }}
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$store.dispatch('fetchResult');
+    this.$bus.$on('sendCities', function (result) {
+      _this.cityFrom = result.cityFrom;
+      _this.cityTo = result.cityTo;
+    });
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['results']), {
+    hideResults: function hideResults() {
+      return this.results.length > 0;
+    }
+  })
+});
 
 /***/ }),
 
@@ -49572,7 +49593,7 @@ var render = function() {
                 staticClass: "uk-form-label",
                 attrs: { for: "form-stacked-text" }
               },
-              [_vm._v("Длина, см")]
+              [_vm._v("Длина, м")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "uk-form-controls" }, [
@@ -49611,7 +49632,7 @@ var render = function() {
                 staticClass: "uk-form-label",
                 attrs: { for: "form-stacked-text" }
               },
-              [_vm._v("Ширина, см")]
+              [_vm._v("Ширина, м")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "uk-form-controls" }, [
@@ -49650,7 +49671,7 @@ var render = function() {
                 staticClass: "uk-form-label",
                 attrs: { for: "form-stacked-text" }
               },
-              [_vm._v("Высота, см")]
+              [_vm._v("Высота, м")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "uk-form-controls" }, [
@@ -49729,8 +49750,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass:
-              "uk-margin-large-top uk-button uk-button-default uk-button-primary",
+            staticClass: "uk-margin-large-top uk-button  uk-button-primary",
             attrs: { disabled: !_vm.isValid },
             on: {
               click: function($event) {
@@ -49808,8 +49828,16 @@ var render = function() {
   return _c(
     "div",
     {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.hideResults,
+          expression: "hideResults"
+        }
+      ],
       staticClass:
-        "uk-flex@s uk-flex-center uk-margin-large-top uk-background-default uk-padding-large uk-table-middle"
+        "uk-flex@s uk-flex-center uk-margin-large-top uk-background-default uk-padding-large  uk-table-middle"
     },
     [
       _c("div", {
@@ -49823,14 +49851,14 @@ var render = function() {
           staticClass: "uk-margin-medium-bottom",
           staticStyle: { "text-align": "center" }
         },
-        [_vm._v("МОСКВА -> САНКТ-ПЕТЕРБУРГ")]
+        [_vm._v(_vm._s(this.cityFrom) + " > " + _vm._s(this.cityTo))]
       ),
       _vm._v(" "),
       _c(
         "table",
         {
           staticClass:
-            "uk-table uk-table-striped uk-table-large uk-table-hover "
+            "uk-table uk-table-divider uk-table-large uk-table-hover "
         },
         [
           _vm._m(0),
@@ -49841,11 +49869,14 @@ var render = function() {
               return _c("tr", [
                 _c("td", [
                   _c("img", {
+                    staticStyle: {
+                      "object-fit": "cover",
+                      width: "150px",
+                      height: "50px"
+                    },
                     attrs: {
                       id: "company-image",
                       "data-src": result.logo,
-                      width: "200",
-                      height: "100",
                       alt: "",
                       "uk-img": ""
                     }
@@ -63090,14 +63121,24 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('input-calc', __webpack_require__(/*! ./components/InputCalc.vue */ "./resources/js/components/InputCalc.vue")["default"]);
 Vue.component('results', __webpack_require__(/*! ./components/Results.vue */ "./resources/js/components/Results.vue")["default"]);
+Object.defineProperty(Vue.prototype, '$bus', {
+  get: function get() {
+    return this.$root.bus;
+  }
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+var bus = new Vue({}); // This empty Vue model will serve as our event bus.
+
 var app = new Vue({
   el: '#app',
+  data: {
+    bus: new Vue({})
+  },
   store: _store_index__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
 
@@ -63300,6 +63341,7 @@ var actions = {
     var commit = _ref.commit;
     axios.post('/api/calculate/', result).then(function (res) {
       commit('CREATE_RESULT', res.data[0]);
+      commit('CREATE_RESULT', res.data[1]);
     })["catch"](function (err) {
       console.log(err);
     });
@@ -63374,7 +63416,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 __webpack_require__.r(__webpack_exports__);
 var mutations = {
   CREATE_RESULT: function CREATE_RESULT(state, result) {
-    state.results.splice(0, state.results.length);
     state.results.unshift(result);
   },
   FETCH_RESULT: function FETCH_RESULT(state) {

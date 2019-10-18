@@ -4,7 +4,9 @@
 namespace App\Http\Controllers;
 
 
+use App\dellinApi;
 use App\nrgApi;
+use App\pecomApi;
 use Illuminate\Http\Request;
 
 class ApiHomeController extends Controller
@@ -28,12 +30,19 @@ class ApiHomeController extends Controller
         $nrgApi->login();
         $nrgApiPriceResult = $nrgApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
-        //
+        //ПЭК
+        $dellinApi = new dellinApi();
+        $cityFromId = $dellinApi->getCityId($cityFrom);
+        $cityToId = $dellinApi->getCityId($cityTo);
+        $dellinApiPriceResult = $dellinApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+
+
+
 
 
         //Что-то еще...
 
-        $results = array($nrgApiPriceResult);
+        $results = array($nrgApiPriceResult, $dellinApiPriceResult);
 
         return $results;
 
