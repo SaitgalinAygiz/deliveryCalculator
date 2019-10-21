@@ -2,8 +2,7 @@ let actions = {
     createResult({commit}, result) {
         axios.post('/api/calculate/', result)
             .then(res => {
-                commit('CREATE_RESULT', res.data[0]);
-                commit('CREATE_RESULT', res.data[1])
+                commit('CREATE_RESULT', res);
             }).catch(err => {
             console.log(err)
         })

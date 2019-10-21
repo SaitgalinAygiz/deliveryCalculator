@@ -21,28 +21,35 @@ class ApiHomeController extends Controller
         $height = (float) $request->get('height');
         $length = (float)$request->get('length');
 
+        $nrgCheckbox = $request->get('nrgCheckbox');
+        $dellinCheckbox = $request->get('dellinCheckbox');
+        $pecomCheckbox = $request->get('pecomCheckbox');
 
 
-        //ЭНЕРГИЯ
-        $nrgApi = new nrgApi();
-        $cityFromId = $nrgApi->getCityId($cityFrom);
-        $cityToId = $nrgApi->getCityId($cityTo);
-        $nrgApi->login();
-        $nrgApiPriceResult = $nrgApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+        $results = [];
 
-        //ПЭК
-        $dellinApi = new dellinApi();
-        $cityFromId = $dellinApi->getCityId($cityFrom);
-        $cityToId = $dellinApi->getCityId($cityTo);
-        $dellinApiPriceResult = $dellinApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+        //Энергия
+        if ($nrgCheckbox !== false){
 
+            $nrgApi = new nrgApi();
+            $cityFromId = $nrgApi->getCityId($cityFrom);
+            $cityToId = $nrgApi->getCityId($cityTo);
+            $nrgApi->login();
+            $nrgApiPriceResult = $nrgApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
+            array_push($results, $nrgApiPriceResult);
+        }
 
+        //Деловые линии
+        if ($dellinCheckbox !== false) {
 
+            $dellinApi = new dellinApi();
+            $cityFromId = $dellinApi->getCityId($cityFrom);
+            $cityToId = $dellinApi->getCityId($cityTo);
+            $dellinApiPriceResult = $dellinApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
-        //Что-то еще...
-
-        $results = array($nrgApiPriceResult, $dellinApiPriceResult);
+            array_push($results, $dellinApiPriceResult);
+        }
 
         return $results;
 

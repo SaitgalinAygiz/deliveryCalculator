@@ -1,7 +1,11 @@
 <template>
+<div>
+    <div v-show="viewLoader" uk-spinner="ratio: 2" ></div>
 
-    <div v-show="hideResults" class="uk-flex@s uk-flex-center uk-margin-large-top uk-background-default uk-padding-large  uk-table-middle">
-        <div uk-spinner="ratio: 2" style="display: none"></div>
+    <div v-show="hideResults" class="uk-flex@s uk-flex-center  uk-background-default uk-padding-large  uk-table-middle">
+
+        <div style="display: none" id="bottomScroll" >bottom</div>
+
         <h2 class="uk-margin-medium-bottom" style="text-align: center; ">{{ this.cityFrom }} > {{ this.cityTo }}</h2>
 
         <table class="uk-table uk-table-divider uk-table-large uk-table-hover ">
@@ -10,7 +14,7 @@
                 <th class="uk-width-1-3"></th>
                 <th class="uk-width-1-4">Компания</th>
                 <th class="uk-width-1-4">Срок</th>
-                <th class="uk-width-1-4"> Стоимость</th>
+                <th class="uk-width-1-4">Стоимость</th>
             </tr>
             </thead>
 
@@ -28,12 +32,14 @@
             </tbody>
         </table>
 
-    </div>
 
+    </div>
+</div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex'
+    import UIkit from 'uikit'
 
     export default {
         name: "Results",
@@ -44,18 +50,31 @@
             return {
                 cityFrom: '',
                 cityTo: '',
-                hasResults: false
+                hasResults: false,
+                viewLoader: false
             }
 
         },
 
+
         mounted() {
+
             this.$store.dispatch('fetchResult');
             this.$bus.$on('sendCities', (result) => {
+                this.viewLoader = true;
                 this.cityFrom = result.cityFrom;
                 this.cityTo = result.cityTo;
 
             });
+
+        },
+
+        updated() {
+
+
+            if (this.hideResults === true) {
+                document.getElementById('bottomLink').click();
+            }
 
         },
 
@@ -68,11 +87,11 @@
 
             hideResults() {
 
+                this.viewLoader = false;
+
                 return this.results.length > 0;
 
             },
-
-
 
 
 

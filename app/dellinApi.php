@@ -73,9 +73,9 @@ class dellinApi
         $this->cityFrom = $cityFrom;
         $this->cityTo = $cityTo;
         $this->weight = $weight;
-        $this->width = $width;
-        $this->height = $height;
-        $this->length = $length;
+        $this->width = (integer) $width / 100;
+        $this->height = (integer) $height / 100;
+        $this->length = (integer) $length / 100;
 
         $response =  $this->client->post('https://api.dellin.ru/v1/public/calculator.json', $this->priceParams())->getBody()->getContents();
 

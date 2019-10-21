@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-require('uikit');
+require('uikit/dist/js/uikit.min');
 window.Vue = require('vue');
 
 import store from './store/index';

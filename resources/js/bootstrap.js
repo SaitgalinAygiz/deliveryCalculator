@@ -21,6 +21,8 @@ try {
 
 window.axios = require('axios');
 
+window.UIkit = require('uikit/dist/js/uikit.min');
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

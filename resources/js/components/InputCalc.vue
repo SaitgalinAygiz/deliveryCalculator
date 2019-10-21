@@ -22,20 +22,20 @@
 
                 <div class="uk-flex uk-margin-medium-top">
                     <div class=" uk-margin-right uk-width-1-4">
-                        <label class="uk-form-label" for="form-stacked-text">Длина, м</label>
+                        <label class="uk-form-label" for="form-stacked-text">Длина, см</label>
                         <div class="uk-form-controls">
                             <input class="uk-input" id="form-stacked-text" v-model="result.length" type="number" placeholder="В целых числах">
                         </div>
                     </div>
 
                     <div class="uk-margin-right uk-width-1-4">
-                        <label class="uk-form-label" for="form-stacked-text">Ширина, м</label>
+                        <label class="uk-form-label" for="form-stacked-text">Ширина, см</label>
                         <div class="uk-form-controls">
                             <input class="uk-input" id="form-stacked-text" v-model="result.width" type="number" placeholder="В целых числах">
                         </div>
                     </div>
                     <div class=" uk-margin-right uk-width-1-4">
-                        <label class="uk-form-label" for="form-stacked-text">Высота, м</label>
+                        <label class="uk-form-label" for="form-stacked-text">Высота, см</label>
                         <div class="uk-form-controls">
                             <input class="uk-input" id="form-stacked-text" v-model="result.height" type="number" placeholder="В целых числах">
                         </div>
@@ -54,9 +54,9 @@
 
 
                 <div class="uk-margin-large-top uk-grid-small uk-child-width-auto uk-grid">
-                    <label><input class="uk-checkbox" type="checkbox" checked> Энергия</label>
-                    <label><input class="uk-checkbox" type="checkbox"> ПЭК</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Деловые Линии</label>
+                    <label><input id="nrg-checkbox" class="uk-checkbox" v-model="result.nrgCheckbox" type="checkbox" checked> Энергия</label>
+                    <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox"> ПЭК (недоступен)</label>
+                    <label><input id="dellin-checkbox" class="uk-checkbox" v-model="result.dellinCheckbox" type="checkbox"> Деловые Линии</label>
 
                 </div>
 
@@ -64,8 +64,9 @@
             </fieldset>
 
             <div class="uk-flex uk-flex-center">
-                <button :disabled="!isValid"  @click.prevent="createResult(result)" class="uk-margin-large-top uk-button  uk-button-primary">Рассчитать стоимость доставки</button>
+                <button  :disabled="!isValid"  @click.prevent="createResult(result)" class="uk-margin-large-top uk-button  uk-button-primary" >Рассчитать стоимость доставки</button>
 
+                <a id="bottomLink" href="#bottomScroll" uk-scroll></a>
             </div>
         </form>
 
@@ -83,19 +84,24 @@
                     cityFrom: 'Москва',
                     cityTo: 'Санкт-Петербург',
                     weight: '1',
-                    width: '1',
-                    height: '1',
-                    length: '1'
+                    width: '100',
+                    height: '100',
+                    length: '100',
+                    nrgCheckbox: false,
+                    pecomCheckbox: false,
+                    dellinCheckbox: false
                 }
         }
         },
 
         methods: {
             createResult(result) {
+
                 this.$store.dispatch('createResult', result);
                 this.$bus.$emit('sendCities', {
                     cityFrom: result.cityFrom,
                     cityTo: result.cityTo,
+
                 });
 
 
@@ -112,7 +118,7 @@
                 return this.result.cityFrom !== '' && this.result.cityTo !== ''  && this.result.weight !== ''
                     && this.result.width !== ''  && this.result.height !== ''  && this.result.length !== ''
                 && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0
-                && this.result.width > 0
+                && this.result.width > 0 && ( this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox)
 
             },
         }

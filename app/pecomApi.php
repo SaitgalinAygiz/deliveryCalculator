@@ -17,29 +17,49 @@ class pecomApi
 
     private function loginParams() {
         return [
-            'json' => [
-                'login' => 'Aygiz_S',
-                'password' => '72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E',
-
-                ]
+            'Authorization' => 'Basic Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E'
         ];
     }
 
     private function priceParams() {
         return [
+            'headers' => ['Authorization' => 'Basic Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E'],
             'json' =>  [
-                'idCityFrom' => $this->cityFrom, //туймазы
-                'idCityTo' => $this->cityTo, //сургут
-                'cover' => 0,
-                'idCurrency' => 1,
-                'items' => [[
-                    'weight' => $this->weight,
+                'places' => [
+                    '0' => [
+                        '0' => $this->width,
+                        '1' => $this->length,
+                        '2' => $this->height,
+                        '3' => $this->height * $this->length * $this->height,
+                        '4' => $this->weight,
+                        '5' => 1,
+                        '6' => 1,
+                    ],
+                ],
+                'take' => $this->cityFrom,
+
+                'senderCityId' => $this->cityFrom, //туймазы
+                'receiverCityId' => $this->cityTo, //сургут
+                'isOpenCarSender' => false,
+                'senderDistanceType' => 0,
+                'isDayByDay' => false,
+                'isOpenCarReceiver' => false,
+                'isHyperMarket' => false,
+                'isInsurance' => true,
+                'isPickUp' => false,
+                'isDelivery' => false,
+                'Cargos' => [[
+                    'length' => $this->length,
                     'width' => $this->width,
                     'height' => $this->height,
-                    'length' => $this->length
+                    'maxSize' => max($this->length, $this->width, $this->height),
+                    'isHP' => false,
+                    'sealingPositionsCount' => 0,
+                    'weight' => $this->weight,
+                    'overSize' => false
+
                 ]],
-                'declaredCargoPrice' => 0,
-                'idClient' => 0
+
             ]
         ];
     }
@@ -49,9 +69,6 @@ class pecomApi
     {
         $this->client = new Client([
             'headers' => [
-                'Content-Type' => 'application/json; charset=utf-8',
-                'Accept' => 'application/json',
-                'Authorization' => 'Basic 72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E'
             ],
         ]);
 
@@ -60,25 +77,22 @@ class pecomApi
 
     public function login() {
 
-        $request = $this->client->post('https://kabinet.pecom.ru/api/v1/auth/profiledata');
+        $request = $this->client->post('https://kabinet.pecom.ru/api/v1/auth', $this->loginParams());
 
         return $request;
 
     }
 
     public function getCityId($cityTitle) {
-        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/all');
-
-        $cities = json_decode($citiesResponse);
 
 
-        foreach ($cities->cityList as $city) {
-            if ($cityTitle == $city->name) {
-                $cityId = $city->id;
-            }
-        }
+        $citiesResponse = $this->client->get('http://www.pecom.ru/ru/calc/towns.php')->getBody()->getContents();
+
+        $cities = json_decode($citiesResponse, true);
 
 
+
+        $cityId = array_key_first($cities[$cityTitle]);
 
         return $cityId;
 
@@ -89,19 +103,17 @@ class pecomApi
         $this->cityFrom = $cityFrom;
         $this->cityTo = $cityTo;
         $this->weight = $weight;
-        $this->width = $width;
-        $this->height = $height;
-        $this->length = $length;
+        $this->width = $width / 100;
+        $this->height =  $height / 100;
+        $this->length = $length / 100;
 
-        $response =  $this->client->post('https://kabinet.pecom.ru/api/v1/calculator', $this->priceParams())->getBody();
+        $response =  $this->client->post('https://kabinet.pecom.ru/api/v1/calculator/calculateprice/', $this->priceParams())->getBody();
 
-        $json = json_decode($response);
-        $json = $json->transfer[0];
-        $json->company = 'Энергия';
-        $json->logo = '/storage/images/nrg-logo.png';
+        dd($response);
 
 
-        return $json;
+
+        return $response;
 
     }
 
