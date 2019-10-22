@@ -50036,8 +50036,8 @@ var render = function() {
                       attrs: {
                         id: "company-image",
                         "data-src": result.logo,
-                        width: "300",
-                        height: "100",
+                        width: "240",
+                        height: "70",
                         alt: "",
                         "uk-img": ""
                       }

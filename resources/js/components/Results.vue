@@ -22,7 +22,7 @@
 
             <tr v-for="result in results" >
                 <td>
-                    <img id="company-image" :data-src="result.logo" width="300" height="100"  alt="" uk-img>
+                    <img id="company-image" :data-src="result.logo" width="240" height="70"  alt="" uk-img>
                 </td>
                 <td>{{ result.company }}</td>
                 <td>{{ result.interval }}</td>
