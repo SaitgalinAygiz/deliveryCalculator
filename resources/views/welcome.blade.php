@@ -4,7 +4,7 @@
 
 
 
-    <div class="uk-container uk-flex@s uk-flex-center uk-margin-medium-top uk-background-default uk-padding-large uk- ">
+    <div class="uk-container uk-flex@s uk-flex-center uk-margin-medium-top uk-background-default uk-padding-large ">
         <div class="uk-heading-small ">
             Рассчитать стоимость доставки груза через API транспортных компаний
         </div>

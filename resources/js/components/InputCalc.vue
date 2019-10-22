@@ -5,7 +5,7 @@
 
                 <div class="uk-flex">
                     <div class=" uk-margin-right uk-width-1-2">
-                        <label class="uk-form-label" for="form-stacked-text">Город отправления</label>
+                        <label class="uk-form-label  " for="form-stacked-text">Город отправления</label>
                         <div class="uk-form-controls">
                             <input class="uk-input" id="form-stacked-text" v-model="result.cityFrom" type="text" placeholder="Екатеринбург">
 
@@ -55,7 +55,7 @@
 
                 <div class="uk-margin-large-top uk-grid-small uk-child-width-auto uk-grid">
                     <label><input id="nrg-checkbox" class="uk-checkbox" v-model="result.nrgCheckbox" type="checkbox" checked> Энергия</label>
-                    <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox"> ПЭК (недоступен)</label>
+                    <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox"> ПЭК </label>
                     <label><input id="dellin-checkbox" class="uk-checkbox" v-model="result.dellinCheckbox" type="checkbox"> Деловые Линии</label>
 
                 </div>
@@ -64,7 +64,7 @@
             </fieldset>
 
             <div class="uk-flex uk-flex-center">
-                <button  :disabled="!isValid"  @click.prevent="createResult(result)" class="uk-margin-large-top uk-button  uk-button-primary" >Рассчитать стоимость доставки</button>
+                <button  :disabled="!isValid"  @click.prevent="createResult(result)" class="uk-margin-large-top uk-button   uk-button-primary" >Рассчитать стоимость доставки</button>
 
                 <a id="bottomLink" href="#bottomScroll" uk-scroll></a>
             </div>
@@ -119,8 +119,12 @@
                     && this.result.width !== ''  && this.result.height !== ''  && this.result.length !== ''
                 && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0
                 && this.result.width > 0 && ( this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox)
+                && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.')
+                    && !this.result.weight.includes('.')
 
             },
+
+
         }
 
     }

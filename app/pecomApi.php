@@ -15,50 +15,48 @@ class pecomApi
 
     private $token = 'Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E';
 
-    private function loginParams() {
+    private function getCityParams($cityTitle) {
+
+        if ($cityTitle == 'Москва') {
+            $cityTitle = 'Москва Восток';
+        }
+
         return [
-            'Authorization' => 'Basic Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E'
+            'json' => [
+                'title' => $cityTitle,
+            ]
         ];
     }
 
     private function priceParams() {
+
+
         return [
-            'headers' => ['Authorization' => 'Basic Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E'],
             'json' =>  [
-                'places' => [
-                    '0' => [
-                        '0' => $this->width,
-                        '1' => $this->length,
-                        '2' => $this->height,
-                        '3' => $this->height * $this->length * $this->height,
-                        '4' => $this->weight,
-                        '5' => 1,
-                        '6' => 1,
-                    ],
-                ],
-                'take' => $this->cityFrom,
+                    'senderCityId' => $this->cityFrom, //туймазы
+                    'receiverCityId' => $this->cityTo, //сургут
+                    'isOpenCarSender' => false,
+                    'senderDistanceType' => 0,
+                    'isDayByDay' => false,
+                    'isOpenCarReceiver' => false,
+                    'receiverDistanceType' => 0,
+                    'isHyperMarket' => false,
+                    'isInsurance' => false,
+                    'isPickUp' => false,
+                    'isDelivery' => false,
+                    'Cargos' => [[
+                        'length' => $this->length,
+                        'width' => $this->width,
+                        'height' => $this->height,
+                        'volume' => $this->length * $this->width * $this->height,
+                        'maxSize' => max($this->length, $this->width, $this->height),
+                        'isHP' => false,
+                        'sealingPositionsCount' => 0,
+                        'weight' => $this->weight,
+                        'overSize' => false
 
-                'senderCityId' => $this->cityFrom, //туймазы
-                'receiverCityId' => $this->cityTo, //сургут
-                'isOpenCarSender' => false,
-                'senderDistanceType' => 0,
-                'isDayByDay' => false,
-                'isOpenCarReceiver' => false,
-                'isHyperMarket' => false,
-                'isInsurance' => true,
-                'isPickUp' => false,
-                'isDelivery' => false,
-                'Cargos' => [[
-                    'length' => $this->length,
-                    'width' => $this->width,
-                    'height' => $this->height,
-                    'maxSize' => max($this->length, $this->width, $this->height),
-                    'isHP' => false,
-                    'sealingPositionsCount' => 0,
-                    'weight' => $this->weight,
-                    'overSize' => false
+                    ]],
 
-                ]],
 
             ]
         ];
@@ -67,53 +65,76 @@ class pecomApi
 
     public function __construct()
     {
+
+        $credentials = base64_encode('Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E');
+
         $this->client = new Client([
             'headers' => [
+                'Content-Type' => 'application/json;charset=utf-8',
+                'Accept' => 'application/json',
+                'Authorization' => ['Basic '.$credentials],
+
+
             ],
         ]);
 
     }
 
 
-    public function login() {
-
-        $request = $this->client->post('https://kabinet.pecom.ru/api/v1/auth', $this->loginParams());
-
-        return $request;
-
-    }
-
     public function getCityId($cityTitle) {
 
-
-        $citiesResponse = $this->client->get('http://www.pecom.ru/ru/calc/towns.php')->getBody()->getContents();
-
-        $cities = json_decode($citiesResponse, true);
+        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/findbytitle/', $this->getCityParams($cityTitle))->getBody()->getContents();
 
 
+        $citiesResponse = json_decode($citiesResponse);
 
-        $cityId = array_key_first($cities[$cityTitle]);
-
-        return $cityId;
-
+        if (!empty($citiesResponse->items['0'])) {
+            return $citiesResponse->items['0']->branchId;
+        } else {
+            return 'no results';
+        }
     }
 
     public function price ($cityFrom, $cityTo, $weight, $width, $height, $length) {
 
+
+
         $this->cityFrom = $cityFrom;
         $this->cityTo = $cityTo;
         $this->weight = $weight;
-        $this->width = $width / 100;
+        $this->width =  $width / 100;
         $this->height =  $height / 100;
-        $this->length = $length / 100;
-
-        $response =  $this->client->post('https://kabinet.pecom.ru/api/v1/calculator/calculateprice/', $this->priceParams())->getBody();
-
-        dd($response);
+        $this->length =  $length / 100;
 
 
+        $response =  $this->client->post('https://kabinet.pecom.ru/api/v1/calculator/calculateprice/', $this->priceParams())->getBody()->getContents();
 
-        return $response;
+
+
+        $response = json_decode($response);
+
+
+        $results = $response->transfers[0];
+
+
+
+
+        $results->price = (integer) $response->transfers[0]->costTotal;
+
+
+
+        if (isset($response->commonTerms[0]->transportingWithDeliveryWithPickup)) {
+
+            $results->interval = $response->commonTerms[0]->transportingWithDeliveryWithPickup;
+            $results->interval = str_replace(' ','', $results->interval) . ' дней';
+
+        }
+        $results->company = 'ПЭК';
+        $results->logo = '/storage/images/logo-pek.png';
+
+
+        return $results;
+
 
     }
 

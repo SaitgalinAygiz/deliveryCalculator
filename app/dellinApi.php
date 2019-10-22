@@ -62,10 +62,12 @@ class dellinApi
 
         $citiesResponse = json_decode($citiesResponse);
 
-        $result = $citiesResponse->cities[0]->code;
 
-        return $result;
-
+        if (!empty($citiesResponse->cities[0])) {
+            return $citiesResponse->cities[0]->code;
+        } else {
+            return 'no results';
+        }
     }
 
     public function price ($cityFrom, $cityTo, $weight, $width, $height, $length) {

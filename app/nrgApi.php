@@ -66,16 +66,22 @@ class nrgApi
     public function getCityId($cityTitle) {
         $citiesResponse = $this->client->get('https://mainapi.nrg-tk.ru/v3/cities')->getBody()->getContents();
 
-        $cities = json_decode($citiesResponse);
+        $cities = json_decode(mb_strtolower($citiesResponse));
 
+        $cityTitle = mb_strtolower($cityTitle);
 
-          foreach ($cities->cityList as $city) {
-            if ($cityTitle == $city->name) {
+         foreach ($cities->citylist as $city) {
+             if ($cityTitle == $city->name) {
                 $cityId = $city->id;
             }
         }
 
-        return $cityId;
+
+        if (!empty($cityId)) {
+            return $cityId;
+        } else {
+            return 'no results';
+        }
 
     }
 
@@ -84,9 +90,9 @@ class nrgApi
         $this->cityFrom = $cityFrom;
         $this->cityTo = $cityTo;
         $this->weight = $weight;
-        $this->width =  $width / 100;
-        $this->height =  $height / 100;
-        $this->length =  $length / 100;
+        $this->width = (integer) $width / 100;
+        $this->height = (integer) $height / 100;
+        $this->length = (integer) $length / 100;
 
         $response =  $this->client->post('https://mainapi.nrg-tk.ru/v3/price', $this->priceParams())->getBody();
 

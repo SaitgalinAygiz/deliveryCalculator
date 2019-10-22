@@ -17,20 +17,7 @@ class HomeController extends Controller
     {
 
 
-        $cityFrom = 'Москва';
-        $cityTo = 'Уфа';
-        $weight = '1';
-        $width = '100';
-        $height = '100';
-        $length = '100';
 
-        $pecomApi = new pecomApi();
-        $cityFromId = $pecomApi->getCityId($cityFrom);
-        $cityToId = $pecomApi->getCityId($cityTo);
-
-
-
-        $pecomApiPriceResult = $pecomApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
         return view('welcome');
     }

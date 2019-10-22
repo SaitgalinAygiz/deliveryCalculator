@@ -1945,7 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     isValid: function isValid() {
-      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '' && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0 && this.result.width > 0 && (this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox);
+      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '' && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0 && this.result.width > 0 && (this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox) && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.') && !this.result.weight.includes('.');
     }
   }
 });
@@ -49544,7 +49544,7 @@ var render = function() {
             _c(
               "label",
               {
-                staticClass: "uk-form-label",
+                staticClass: "uk-form-label  ",
                 attrs: { for: "form-stacked-text" }
               },
               [_vm._v("Город отправления")]
@@ -49875,7 +49875,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" ПЭК (недоступен)")
+              _vm._v(" ПЭК ")
             ]),
             _vm._v(" "),
             _c("label", [
@@ -49934,7 +49934,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "uk-margin-large-top uk-button  uk-button-primary",
+            staticClass: "uk-margin-large-top uk-button   uk-button-primary",
             attrs: { disabled: !_vm.isValid },
             on: {
               click: function($event) {
@@ -50000,7 +50000,7 @@ var render = function() {
           }
         ],
         staticClass:
-          "uk-flex@s uk-flex-center  uk-background-default uk-padding-large  uk-table-middle"
+          "uk-flex@s uk-flex-center  uk-background-default uk-padding-large uk-padding-remove-top  uk-table-middle"
       },
       [
         _c(
@@ -50033,14 +50033,11 @@ var render = function() {
                 return _c("tr", [
                   _c("td", [
                     _c("img", {
-                      staticStyle: {
-                        "object-fit": "cover",
-                        width: "150px",
-                        height: "50px"
-                      },
                       attrs: {
                         id: "company-image",
                         "data-src": result.logo,
+                        width: "300",
+                        height: "100",
                         alt: "",
                         "uk-img": ""
                       }
@@ -63582,11 +63579,15 @@ __webpack_require__.r(__webpack_exports__);
 var mutations = {
   CREATE_RESULT: function CREATE_RESULT(state, result) {
     state.results = [];
-    var num = result.data.length;
-    console.log(num);
 
-    for (var i = 0; i < num; i++) {
-      state.results.unshift(result.data[i]);
+    if (result.data === 'no results') {
+      alert('Нет результатов! Обратите внимание на написание городов');
+    } else {
+      var num = result.data.length;
+
+      for (var i = 0; i < num; i++) {
+        state.results.unshift(result.data[i]);
+      }
     }
   },
   FETCH_RESULT: function FETCH_RESULT(state) {

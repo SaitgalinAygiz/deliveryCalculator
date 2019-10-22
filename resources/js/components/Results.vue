@@ -2,7 +2,7 @@
 <div>
     <div v-show="viewLoader" uk-spinner="ratio: 2" ></div>
 
-    <div v-show="hideResults" class="uk-flex@s uk-flex-center  uk-background-default uk-padding-large  uk-table-middle">
+    <div v-show="hideResults" class="uk-flex@s uk-flex-center  uk-background-default uk-padding-large uk-padding-remove-top  uk-table-middle">
 
         <div style="display: none" id="bottomScroll" >bottom</div>
 
@@ -22,7 +22,7 @@
 
             <tr v-for="result in results" >
                 <td>
-                    <img id="company-image" :data-src="result.logo"  style="object-fit: cover; width: 150px; height: 50px;" alt="" uk-img>
+                    <img id="company-image" :data-src="result.logo" width="300" height="100"  alt="" uk-img>
                 </td>
                 <td>{{ result.company }}</td>
                 <td>{{ result.interval }}</td>
@@ -60,6 +60,7 @@
         mounted() {
 
             this.$store.dispatch('fetchResult');
+
             this.$bus.$on('sendCities', (result) => {
                 this.viewLoader = true;
                 this.cityFrom = result.cityFrom;

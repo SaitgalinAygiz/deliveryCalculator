@@ -16,10 +16,10 @@ class ApiHomeController extends Controller
 
         $cityFrom = (string) $request->get('cityFrom');
         $cityTo = (string) $request->get('cityTo');
-        $weight = (float)$request->get('weight');
-        $width = (float)$request->get('width');
-        $height = (float) $request->get('height');
-        $length = (float)$request->get('length');
+        $weight = (integer)$request->get('weight');
+        $width = (integer)$request->get('width');
+        $height = (integer) $request->get('height');
+        $length = (integer)$request->get('length');
 
         $nrgCheckbox = $request->get('nrgCheckbox');
         $dellinCheckbox = $request->get('dellinCheckbox');
@@ -34,10 +34,17 @@ class ApiHomeController extends Controller
             $nrgApi = new nrgApi();
             $cityFromId = $nrgApi->getCityId($cityFrom);
             $cityToId = $nrgApi->getCityId($cityTo);
-            $nrgApi->login();
-            $nrgApiPriceResult = $nrgApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
-            array_push($results, $nrgApiPriceResult);
+            //оч плохо(
+            if ($cityFromId == 'no results' || $cityToId == 'no results') {
+                //no results
+            } else {
+                $nrgApi->login();
+                $nrgApiPriceResult = $nrgApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+                array_push($results, $nrgApiPriceResult);
+            }
+
+
         }
 
         //Деловые линии
@@ -46,12 +53,40 @@ class ApiHomeController extends Controller
             $dellinApi = new dellinApi();
             $cityFromId = $dellinApi->getCityId($cityFrom);
             $cityToId = $dellinApi->getCityId($cityTo);
-            $dellinApiPriceResult = $dellinApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
-            array_push($results, $dellinApiPriceResult);
+            if ($cityFromId == 'no results' || $cityToId == 'no results') {
+                //no results
+            } else {
+                $dellinApiPriceResult = $dellinApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+
+                array_push($results, $dellinApiPriceResult);
+            }
+
+
+
         }
 
-        return $results;
+
+        //ПЭК
+        if($pecomCheckbox !== false) {
+            $pecomApi = new pecomApi();
+            $cityFromId = $pecomApi->getCityId($cityFrom);
+            $cityToId = $pecomApi->getCityId($cityTo);
+
+            if ($cityFromId == 'no results' || $cityToId == 'no results') {
+                //no results
+            } else {
+                $pecomApiPriceResult = $pecomApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+                array_push($results, $pecomApiPriceResult);
+            }
+
+        }
+
+        if (!empty($results)) {
+            return $results;
+        } else {
+            return 'no results';
+        }
 
 
     }
