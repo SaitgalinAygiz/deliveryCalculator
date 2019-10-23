@@ -27,6 +27,7 @@
                 <td>{{ result.company }}</td>
                 <td>{{ result.interval }}</td>
                 <td>{{ result.price }} руб.</td>
+
             </tr>
 
             </tbody>

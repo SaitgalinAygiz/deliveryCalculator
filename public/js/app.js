@@ -1915,6 +1915,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1970,6 +1971,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -49530,7 +49532,7 @@ var render = function() {
   return _c(
     "form",
     {
-      attrs: { action: "javascript:void(0);" },
+      attrs: { method: "post", action: "javascript:void(0);" },
       on: {
         submit: function($event) {
           return _vm.createResult(_vm.result)

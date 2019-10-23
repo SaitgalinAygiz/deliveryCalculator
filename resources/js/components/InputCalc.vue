@@ -1,6 +1,7 @@
 <template>
 
-        <form action="javascript:void(0);" @submit="createResult(result)" >
+        <form method="post" action="javascript:void(0);" @submit="createResult(result)" >
+
             <fieldset class=" uk-fieldset uk-margin-medium-top">
 
                 <div class="uk-flex">
