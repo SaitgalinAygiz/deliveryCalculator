@@ -13,8 +13,6 @@ class pecomApi
     private $cityFrom, $cityTo, $weight, $width, $height, $length;
 
 
-    private $token = 'Aygiz_S:72FDBD5ACA69A63E727EE1C8EAD4BAEDA92DB22E';
-
     private function getCityParams($cityTitle) {
 
         if ($cityTitle == 'Москва') {
@@ -73,8 +71,6 @@ class pecomApi
                 'Content-Type' => 'application/json;charset=utf-8',
                 'Accept' => 'application/json',
                 'Authorization' => ['Basic '.$credentials],
-
-
             ],
         ]);
 
@@ -83,21 +79,32 @@ class pecomApi
 
     public function getCityId($cityTitle) {
 
-        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/findbytitle/', $this->getCityParams($cityTitle))->getBody()->getContents();
+        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/all/')->getBody()->getContents();
+
+        $citiesResponseDecode = json_decode(mb_strtolower($citiesResponse));
 
 
-        $citiesResponse = json_decode($citiesResponse);
+        $cityTitle = mb_strtolower($cityTitle);
 
-        if (!empty($citiesResponse->items['0'])) {
-            return $citiesResponse->items['0']->branchId;
+        if ($cityTitle == 'москва') {
+            $cityTitle = 'москва восток';
+        }
+
+        foreach ($citiesResponseDecode->branches as $city) {
+            if ($cityTitle == $city->title) {
+                $cityId = $city->bitrixid;
+            }
+        }
+
+
+        if (!empty($cityId)) {
+            return $cityId;
         } else {
             return 'no results';
         }
     }
 
     public function price ($cityFrom, $cityTo, $weight, $width, $height, $length) {
-
-
 
         $this->cityFrom = $cityFrom;
         $this->cityTo = $cityTo;
@@ -110,9 +117,11 @@ class pecomApi
         $response =  $this->client->post('https://kabinet.pecom.ru/api/v1/calculator/calculateprice/', $this->priceParams())->getBody()->getContents();
 
 
-
         $response = json_decode($response);
 
+        if (empty($response->transfers[0])) {
+            return 'no results';
+        }
 
         $results = $response->transfers[0];
 
@@ -120,8 +129,6 @@ class pecomApi
 
 
         $results->price = (integer) $response->transfers[0]->costTotal;
-
-
 
         if (isset($response->commonTerms[0]->transportingWithDeliveryWithPickup)) {
 

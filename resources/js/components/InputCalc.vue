@@ -54,10 +54,12 @@
 
 
 
-                <div class="uk-margin-large-top uk-grid-small uk-child-width-auto uk-grid">
+                <div class="uk-margin-large-top uk-grid-small uk-child-width-2-6@m" uk-grid>
                     <label><input id="nrg-checkbox" class="uk-checkbox" v-model="result.nrgCheckbox" type="checkbox" checked> Энергия</label>
                     <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox"> ПЭК </label>
                     <label><input id="dellin-checkbox" class="uk-checkbox" v-model="result.dellinCheckbox" type="checkbox"> Деловые Линии</label>
+                    <label><input id="baikal-checkbox" class="uk-checkbox" v-model="result.baikalCheckbox" type="checkbox"> Байкал сервис</label>
+                    <label><input id="gtd-checkbox" class="uk-checkbox" v-model="result.gtdCheckbox" type="checkbox"> GTD</label>
 
                 </div>
 
@@ -90,7 +92,9 @@
                     length: '100',
                     nrgCheckbox: false,
                     pecomCheckbox: false,
-                    dellinCheckbox: false
+                    dellinCheckbox: false,
+                    baikalCheckbox: false,
+                    gtdCheckbox: false,
                 }
         }
         },
@@ -119,7 +123,7 @@
                 return this.result.cityFrom !== '' && this.result.cityTo !== ''  && this.result.weight !== ''
                     && this.result.width !== ''  && this.result.height !== ''  && this.result.length !== ''
                 && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0
-                && this.result.width > 0 && ( this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox)
+                && this.result.width > 0 && ( this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox || this.result.baikalCheckbox || this.result.gtdCheckbox)
                 && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.')
                     && !this.result.weight.includes('.')
 

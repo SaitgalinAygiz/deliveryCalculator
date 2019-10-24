@@ -82,6 +82,11 @@ class dellinApi
         $response =  $this->client->post('https://api.dellin.ru/v1/public/calculator.json', $this->priceParams())->getBody()->getContents();
 
         $json = json_decode($response);
+
+        if (empty($json->price)) {
+            return 'no results';
+        }
+
         $interval = $json->time->genitive;
         $price = $json->price;
         $json = $json->time;

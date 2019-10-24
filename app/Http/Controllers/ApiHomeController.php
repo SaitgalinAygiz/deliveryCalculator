@@ -4,7 +4,9 @@
 namespace App\Http\Controllers;
 
 
+use App\baikalApi;
 use App\dellinApi;
+use App\gtdApi;
 use App\nrgApi;
 use App\pecomApi;
 use Illuminate\Http\Request;
@@ -13,6 +15,8 @@ class ApiHomeController extends Controller
 {
     public function calculate(Request $request) {
 
+
+        //код пока что ВРЕМЕННО такой
 
         $cityFrom = (string) $request->get('cityFrom');
         $cityTo = (string) $request->get('cityTo');
@@ -24,6 +28,8 @@ class ApiHomeController extends Controller
         $nrgCheckbox = $request->get('nrgCheckbox');
         $dellinCheckbox = $request->get('dellinCheckbox');
         $pecomCheckbox = $request->get('pecomCheckbox');
+        $baikalCheckbox = $request->get('baikalCheckbox');
+        $gtdCheckbox = $request->get('gtdCheckbox');
 
 
         $results = [];
@@ -39,12 +45,13 @@ class ApiHomeController extends Controller
             if ($cityFromId == 'no results' || $cityToId == 'no results') {
                 //no results
             } else {
-                $nrgApi->login();
                 $nrgApiPriceResult = $nrgApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
-                array_push($results, $nrgApiPriceResult);
+                if ($nrgApiPriceResult == 'no results') {
+                    //no results
+                } else {
+                    array_push($results, $nrgApiPriceResult);
+                }
             }
-
-
         }
 
         //Деловые линии
@@ -59,7 +66,12 @@ class ApiHomeController extends Controller
             } else {
                 $dellinApiPriceResult = $dellinApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
-                array_push($results, $dellinApiPriceResult);
+                if ($dellinApiPriceResult == 'no results') {
+                    //no results
+                } else {
+                    array_push($results, $dellinApiPriceResult);
+                }
+
             }
 
 
@@ -68,7 +80,7 @@ class ApiHomeController extends Controller
 
 
         //ПЭК
-        if($pecomCheckbox !== false) {
+        if ($pecomCheckbox !== false) {
             $pecomApi = new pecomApi();
             $cityFromId = $pecomApi->getCityId($cityFrom);
             $cityToId = $pecomApi->getCityId($cityTo);
@@ -77,10 +89,63 @@ class ApiHomeController extends Controller
                 //no results
             } else {
                 $pecomApiPriceResult = $pecomApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
-                array_push($results, $pecomApiPriceResult);
+                if ($pecomApiPriceResult == 'no results') {
+                    //no results
+                } else {
+                    array_push($results, $pecomApiPriceResult);
+                }
             }
 
         }
+
+        //Байкал сервис
+        if ($baikalCheckbox !== false) {
+
+            $baikalApi = new baikalApi();
+
+            $cityFromId = $baikalApi->getCityId($cityFrom);
+            $cityToId = $baikalApi->getCityId($cityTo);
+
+            if ($cityFromId == 'no results' || $cityToId == 'no results') {
+                //no results
+            } else {
+                $baikalApiPriceResult = $baikalApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+                if ($baikalApiPriceResult == 'no results') {
+                    //no results
+                } else {
+                    array_push($results, $baikalApiPriceResult);
+                }
+            }
+
+        }
+
+        if ($gtdCheckbox !== false) {
+
+            $gtdApi = new gtdApi();
+            $cityFromId = $gtdApi->getCityId($cityFrom);
+            $cityToId = $gtdApi->getCityId($cityTo);
+
+            if ($cityFromId == 'no results' || $cityToId == 'no results') {
+                //no results
+            } else {
+                $gtdApiPriceResult = $gtdApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+                if ($gtdApiPriceResult == 'no results') {
+                    //no results
+                } else {
+                    array_push($results, $gtdApiPriceResult);
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
 
         if (!empty($results)) {
             return $results;

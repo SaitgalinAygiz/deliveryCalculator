@@ -97,6 +97,11 @@ class nrgApi
         $response =  $this->client->post('https://mainapi.nrg-tk.ru/v3/price', $this->priceParams())->getBody();
 
         $json = json_decode($response);
+
+        if(empty($json->transfer[0])) {
+            return 'no results';
+        }
+
         $json = $json->transfer[0];
         $json->company = 'Энергия';
         $json->logo = '/storage/images/nrg-logo.png';

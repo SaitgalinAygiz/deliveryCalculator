@@ -1916,6 +1916,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1928,7 +1930,9 @@ __webpack_require__.r(__webpack_exports__);
         length: '100',
         nrgCheckbox: false,
         pecomCheckbox: false,
-        dellinCheckbox: false
+        dellinCheckbox: false,
+        baikalCheckbox: false,
+        gtdCheckbox: false
       }
     };
   },
@@ -1946,7 +1950,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     isValid: function isValid() {
-      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '' && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0 && this.result.width > 0 && (this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox) && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.') && !this.result.weight.includes('.');
+      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '' && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0 && this.result.width > 0 && (this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox || this.result.baikalCheckbox || this.result.gtdCheckbox) && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.') && !this.result.weight.includes('.');
     }
   }
 });
@@ -49783,7 +49787,8 @@ var render = function() {
           "div",
           {
             staticClass:
-              "uk-margin-large-top uk-grid-small uk-child-width-auto uk-grid"
+              "uk-margin-large-top uk-grid-small uk-child-width-2-6@m",
+            attrs: { "uk-grid": "" }
           },
           [
             _c("label", [
@@ -49927,6 +49932,100 @@ var render = function() {
                 }
               }),
               _vm._v(" Деловые Линии")
+            ]),
+            _vm._v(" "),
+            _c("label", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.result.baikalCheckbox,
+                    expression: "result.baikalCheckbox"
+                  }
+                ],
+                staticClass: "uk-checkbox",
+                attrs: { id: "baikal-checkbox", type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.result.baikalCheckbox)
+                    ? _vm._i(_vm.result.baikalCheckbox, null) > -1
+                    : _vm.result.baikalCheckbox
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.result.baikalCheckbox,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.result,
+                            "baikalCheckbox",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.result,
+                            "baikalCheckbox",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.result, "baikalCheckbox", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Байкал сервис")
+            ]),
+            _vm._v(" "),
+            _c("label", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.result.gtdCheckbox,
+                    expression: "result.gtdCheckbox"
+                  }
+                ],
+                staticClass: "uk-checkbox",
+                attrs: { id: "gtd-checkbox", type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.result.gtdCheckbox)
+                    ? _vm._i(_vm.result.gtdCheckbox, null) > -1
+                    : _vm.result.gtdCheckbox
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.result.gtdCheckbox,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(_vm.result, "gtdCheckbox", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.result,
+                            "gtdCheckbox",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.result, "gtdCheckbox", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" GTD")
             ])
           ]
         )
@@ -50038,8 +50137,8 @@ var render = function() {
                       attrs: {
                         id: "company-image",
                         "data-src": result.logo,
-                        width: "240",
-                        height: "70",
+                        width: "230",
+                        height: "40",
                         alt: "",
                         "uk-img": ""
                       }
