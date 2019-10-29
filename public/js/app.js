@@ -1829,6 +1829,82 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DeliveryPointsMap.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_yandex_maps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-yandex-maps */ "./node_modules/vue-yandex-maps/dist/vue-yandex-maps.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    yandexMap: vue_yandex_maps__WEBPACK_IMPORTED_MODULE_1__["yandexMap"],
+    ymapMarker: vue_yandex_maps__WEBPACK_IMPORTED_MODULE_1__["ymapMarker"]
+  },
+  name: "DeliveryPointsMap",
+  data: function data() {
+    return {};
+  },
+  methods: {
+    markerIcon: function markerIcon(company) {
+      return {
+        imageSize: [43, 43],
+        imageOffset: [0, 0],
+        contentOffset: [0, 15],
+        content: company,
+        contentLayout: '<div class="polygon_layout">$[properties.iconContent]</div>'
+      };
+    }
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('fetchResult');
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['results']))
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputCalc.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputCalc.vue?vue&type=script&lang=js& ***!
@@ -1918,12 +1994,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       result: {
         cityFrom: 'Москва',
-        cityTo: 'Санкт-Петербург',
+        cityTo: 'Уфа',
         weight: '1',
         width: '100',
         height: '100',
@@ -1932,7 +2014,11 @@ __webpack_require__.r(__webpack_exports__);
         pecomCheckbox: false,
         dellinCheckbox: false,
         baikalCheckbox: false,
-        gtdCheckbox: false
+        gtdCheckbox: false,
+        vozovozCheckbox: false,
+        glavdostavkaCheckbox: false,
+        jdeCheckbox: false,
+        dimexCheckbox: false
       }
     };
   },
@@ -1950,7 +2036,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     isValid: function isValid() {
-      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '' && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0 && this.result.width > 0 && (this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox || this.result.baikalCheckbox || this.result.gtdCheckbox) && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.') && !this.result.weight.includes('.');
+      return this.result.cityFrom !== '' && this.result.cityTo !== '' && this.result.weight !== '' && this.result.width !== '' && this.result.height !== '' && this.result.length !== '' && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0 && this.result.width > 0 && (this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox || this.result.baikalCheckbox || this.result.gtdCheckbox || this.result.vozovozCheckbox || this.result.glavdostavkaCheckbox || this.result.jdeCheckbox || this.result.dimexCheckbox) && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.') && !this.result.weight.includes('.');
     }
   }
 });
@@ -1975,6 +2061,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -6493,6 +6582,112 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 }));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.ymap-container[data-v-4263eaec] {\n    height: 400px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
 
 
 /***/ }),
@@ -37256,6 +37451,545 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/timers-browserify/main.js":
 /*!************************************************!*\
   !*** ./node_modules/timers-browserify/main.js ***!
@@ -49518,6 +50252,58 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("h2", { staticClass: "uk-card-title uk-margin-medium-top" }, [
+        _vm._v("Карта пунктов выдачи")
+      ]),
+      _vm._v(" "),
+      _c(
+        "yandex-map",
+        { attrs: { coords: [54.734773, 55.957829], zoom: 11 } },
+        [
+          _vm._l(_vm.results, function(result) {
+            return _vm._l(result.branches, function(branch) {
+              return _c("ymap-marker", {
+                key: branch[0],
+                attrs: {
+                  coords: [branch[0], branch[1]],
+                  icon: _vm.markerIcon(result.company),
+                  markerId: "123"
+                }
+              })
+            })
+          })
+        ],
+        2
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputCalc.vue?vue&type=template&id=418043e4&":
 /*!************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputCalc.vue?vue&type=template&id=418043e4& ***!
@@ -49536,7 +50322,7 @@ var render = function() {
   return _c(
     "form",
     {
-      attrs: { method: "post", action: "javascript:void(0);" },
+      attrs: { method: "POST", action: "javascript:void(0);" },
       on: {
         submit: function($event) {
           return _vm.createResult(_vm.result)
@@ -49544,6 +50330,7 @@ var render = function() {
       }
     },
     [
+      _vm._v("\n\n    @csrf\n    @method('POST')\n    "),
       _c("fieldset", { staticClass: " uk-fieldset uk-margin-medium-top" }, [
         _c("div", { staticClass: "uk-flex" }, [
           _c("div", { staticClass: " uk-margin-right uk-width-1-2" }, [
@@ -49787,7 +50574,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "uk-margin-large-top uk-grid-small uk-child-width-2-6@m",
+              "uk-margin-large-top uk-grid-small uk-child-width-1-3@s",
             attrs: { "uk-grid": "" }
           },
           [
@@ -49847,7 +50634,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "uk-checkbox",
-                attrs: { id: "pecom-checkbox", type: "checkbox" },
+                attrs: { id: "pecom-checkbox", type: "checkbox", checked: "" },
                 domProps: {
                   checked: Array.isArray(_vm.result.pecomCheckbox)
                     ? _vm._i(_vm.result.pecomCheckbox, null) > -1
@@ -49945,7 +50732,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "uk-checkbox",
-                attrs: { id: "baikal-checkbox", type: "checkbox" },
+                attrs: { id: "baikal-checkbox", type: "checkbox", checked: "" },
                 domProps: {
                   checked: Array.isArray(_vm.result.baikalCheckbox)
                     ? _vm._i(_vm.result.baikalCheckbox, null) > -1
@@ -49994,7 +50781,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "uk-checkbox",
-                attrs: { id: "gtd-checkbox", type: "checkbox" },
+                attrs: { id: "gtd-checkbox", type: "checkbox", checked: "" },
                 domProps: {
                   checked: Array.isArray(_vm.result.gtdCheckbox)
                     ? _vm._i(_vm.result.gtdCheckbox, null) > -1
@@ -50026,6 +50813,206 @@ var render = function() {
                 }
               }),
               _vm._v(" GTD")
+            ]),
+            _vm._v(" "),
+            _c("label", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.result.vozovozCheckbox,
+                    expression: "result.vozovozCheckbox"
+                  }
+                ],
+                staticClass: "uk-checkbox",
+                attrs: {
+                  id: "vozovoz-checkbox",
+                  type: "checkbox",
+                  checked: ""
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.result.vozovozCheckbox)
+                    ? _vm._i(_vm.result.vozovozCheckbox, null) > -1
+                    : _vm.result.vozovozCheckbox
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.result.vozovozCheckbox,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.result,
+                            "vozovozCheckbox",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.result,
+                            "vozovozCheckbox",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.result, "vozovozCheckbox", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Возовоз")
+            ]),
+            _vm._v(" "),
+            _c("label", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.result.glavdostavkaCheckbox,
+                    expression: "result.glavdostavkaCheckbox"
+                  }
+                ],
+                staticClass: "uk-checkbox",
+                attrs: {
+                  id: "glavdostavka-checkbox",
+                  type: "checkbox",
+                  checked: ""
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.result.glavdostavkaCheckbox)
+                    ? _vm._i(_vm.result.glavdostavkaCheckbox, null) > -1
+                    : _vm.result.glavdostavkaCheckbox
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.result.glavdostavkaCheckbox,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.result,
+                            "glavdostavkaCheckbox",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.result,
+                            "glavdostavkaCheckbox",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.result, "glavdostavkaCheckbox", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Главдоставка")
+            ]),
+            _vm._v(" "),
+            _c("label", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.result.jdeCheckbox,
+                    expression: "result.jdeCheckbox"
+                  }
+                ],
+                staticClass: "uk-checkbox",
+                attrs: { id: "jde-checkbox", type: "checkbox", checked: "" },
+                domProps: {
+                  checked: Array.isArray(_vm.result.jdeCheckbox)
+                    ? _vm._i(_vm.result.jdeCheckbox, null) > -1
+                    : _vm.result.jdeCheckbox
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.result.jdeCheckbox,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(_vm.result, "jdeCheckbox", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.result,
+                            "jdeCheckbox",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.result, "jdeCheckbox", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" ЖелДорЭкспедиция")
+            ]),
+            _vm._v(" "),
+            _c("label", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.result.dimexCheckbox,
+                    expression: "result.dimexCheckbox"
+                  }
+                ],
+                staticClass: "uk-checkbox",
+                attrs: { id: "dimex-checkbox", type: "checkbox", checked: "" },
+                domProps: {
+                  checked: Array.isArray(_vm.result.dimexCheckbox)
+                    ? _vm._i(_vm.result.dimexCheckbox, null) > -1
+                    : _vm.result.dimexCheckbox
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.result.dimexCheckbox,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.result,
+                            "dimexCheckbox",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.result,
+                            "dimexCheckbox",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.result, "dimexCheckbox", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Dimex")
             ])
           ]
         )
@@ -50155,8 +51142,11 @@ var render = function() {
               0
             )
           ]
-        )
-      ]
+        ),
+        _vm._v(" "),
+        _c("delivery-points-map")
+      ],
+      1
     )
   ])
 }
@@ -50287,6 +51277,23 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-yandex-maps/dist/vue-yandex-maps.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/vue-yandex-maps/dist/vue-yandex-maps.js ***!
+  \**************************************************************/
+/*! exports provided: default, loadYmap, yandexMap, ymapMarker */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadYmap", function() { return b; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "yandexMap", function() { return v; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ymapMarker", function() { return k; });
+function t(e){return(t="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(e)}function e(t,e){for(var r=0;r<e.length;r++){var o=e[r];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}function r(t,e,r){return e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t}function o(t){return function(t){if(Array.isArray(t)){for(var e=0,r=new Array(t.length);e<t.length;e++)r[e]=t[e];return r}}(t)||function(t){if(Symbol.iterator in Object(t)||"[object Arguments]"===Object.prototype.toString.call(t))return Array.from(t)}(t)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance")}()}function n(t){return t.charAt(0).toUpperCase()+t.slice(1)}function a(t){return(t.icon.color||"blue")+(t.icon.glyph?n(t.icon.glyph):t.icon.content?"Stretchy":"")}function i(t){return t.map(function(t){return Array.isArray(t)?i(t):+t})}function s(e,r){var o=[];return function e(r,n){if(r===n)return!0;if(r instanceof Date&&n instanceof Date)return+r==+n;if("object"!==t(r)||"object"!==t(n))return!1;if(function(t,e){for(var r=o.length;r--;)if(!(o[r][0]!==t&&o[r][0]!==e||o[r][1]!==e&&o[r][1]!==t))return!0;return!1}(r,n))return!0;o.push([r,n]);var a=Object.keys(r),i=a.length;if(Object.keys(n).length!==i)return!1;for(;i--;)if(!e(r[a[i]],n[a[i]]))return!1;return!0}(e,r)}var c=new(function(){function t(){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this.events={},this.ymapReady=!1,this.scriptIsNotAttached=!0}var r,o,n;return r=t,(o=[{key:"$on",value:function(t,e){var r=this;return this.events[t]||(this.events[t]=[]),this.events[t].push(e),function(){r.events[t]=r.events[t].filter(function(t){return e!==t})}}},{key:"$emit",value:function(t,e){var r=this.events[t];r&&r.forEach(function(t){return t(e)})}}])&&e(r.prototype,o),n&&e(r,n),t}()),l=["fullscreenControl","geolocationControl","routeEditor","rulerControl","searchControl","trafficControl","typeSelector","zoomControl","routePanelControl"];function u(t){return 0===t.filter(function(t){return![].concat(l,["default"]).includes(t)}).length}function p(t,e){var r=n(t);if(!e)return r;switch(r){case"Placemark":return"Point";case"Polyline":return"LineString";default:return r}}function m(e,r){var o,n,a=r?{type:"Feature",id:e.properties.markerId,geometry:{type:e.markerType,coordinates:e.coords},properties:e.properties,options:e.options}:new ymaps[e.markerType](e.coords,e.properties,e.options);return a.clusterName=e.clusterName,r||(o=e.callbacks,n=a,o&&"object"===t(o)&&Object.keys(o).forEach(function(t){n.events.add(t,o[t])})),a}function f(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return new Promise(function(e,r){var o=document.createElement("SCRIPT"),n=t.apiKey,a=void 0===n?"":n,i=t.lang,s=void 0===i?"ru_RU":i,l=t.version,u=void 0===l?"2.1":l,p=t.coordorder,m=void 0===p?"latlong":p,f=t.debug,y=void 0!==f&&f?"debug":"release",d="lang=".concat(s).concat(a&&"&apikey=".concat(a),"&mode=").concat(y,"&coordorder=").concat(m),h="https://api-maps.yandex.ru/".concat(u,"/?").concat(d);o.setAttribute("src",h),o.setAttribute("async",""),o.setAttribute("defer",""),document.body.appendChild(o),c.scriptIsNotAttached=!1,o.onload=function(){c.ymapReady=!0,c.$emit("scriptIsLoaded"),e()},o.onerror=r})}var y={pluginOptions:{},data:function(){return{ymapEventBus:c,ymapId:"yandexMap".concat(Math.round(1e5*Math.random())),myMap:{},style:this.ymapClass?"":"width: 100%; height: 100%;"}},props:{coords:{type:Array,validator:function(t){return!t.filter(function(t){return Number.isNaN(t)}).length},required:!0},zoom:{validator:function(t){return!Number.isNaN(t)},default:18},clusterOptions:{type:Object,default:function(){return{}}},clusterCallbacks:{type:Object,default:function(){return{}}},behaviors:{type:Array,default:function(){return["default"]}},controls:{type:Array,default:function(){return["default"]},validator:function(t){return u(t)}},detailedControls:{type:Object,validator:function(t){return u(Object.keys(t))}},scrollZoom:{type:Boolean,default:!0},zoomControl:Object,mapType:{type:String,default:"map",validator:function(t){return["map","satellite","hybrid"].includes(t)}},placemarks:{type:Array,default:function(){return[]}},useObjectManager:{type:Boolean,default:!1},objectManagerClusterize:{type:Boolean,default:!0},ymapClass:String,initWithoutMarkers:{type:Boolean,default:!0},debug:{type:Boolean,default:!1},settings:{type:Object,default:function(){return{}}},options:{type:Object,default:function(){return{}}}},computed:{coordinates:function(){return this.coords.map(function(t){return+t})}},methods:{getMarkersFromSlots:function(){return this.$slots.default?this.$slots.default.map(function(t){var e=t.componentOptions&&t.componentOptions.propsData;if(e){var r={};if(e.balloonTemplate)r={balloonContentLayout:ymaps.templateLayoutFactory.createClass(e.balloonTemplate)};var o={markerId:e.markerId,markerType:e.markerType||"placemark",coords:i(e.coords),hintContent:e.hintContent,markerFill:e.markerFill,circleRadius:+e.circleRadius,clusterName:e.clusterName,markerStroke:e.markerStroke,balloon:e.balloon,callbacks:e.callbacks,properties:e.properties,options:e.options,balloonOptions:r};return e.icon&&["default#image","default#imageWithContent"].includes(e.icon.layout)?(o.iconContent=e.icon.content,o.iconLayout=e.icon.layout,o.iconImageHref=e.icon.imageHref,o.iconImageSize=e.icon.imageSize,o.iconImageOffset=e.icon.imageOffset,o.iconContentOffset=e.icon.contentOffset,e.icon.contentLayout&&"string"==typeof e.icon.contentLayout&&(o.iconContentLayout=ymaps.templateLayoutFactory.createClass(e.icon.contentLayout))):o.icon=e.icon,o}}).filter(function(t){return t&&t.markerType}):[]},createMarkers:function(){for(var t=this,e=[],r=this.getMarkersFromSlots(),o=0;o<r.length;o++){var n=r[o],i=p(n.markerType,this.useObjectManager),s={hintContent:n.hintContent,iconContent:n.icon?n.icon.content:n.iconContent,markerId:n.markerId},c=n.balloon?{balloonContentHeader:n.balloon.header,balloonContentBody:n.balloon.body,balloonContentFooter:n.balloon.footer}:{},l=Object.assign(s,c,n.properties),u=n.iconLayout?{iconLayout:n.iconLayout,iconImageHref:n.iconImageHref,iconImageSize:n.iconImageSize,iconImageOffset:n.iconImageOffset,iconContentOffset:n.iconContentOffset,iconContentLayout:n.iconContentLayout}:{preset:n.icon&&"islands#".concat(a(n),"Icon")},f=n.markerStroke?{strokeColor:n.markerStroke.color||"0066ffff",strokeOpacity:parseFloat(n.markerStroke.opacity)>=0?parseFloat(n.markerStroke.opacity):1,strokeStyle:n.markerStroke.style,strokeWidth:parseFloat(n.markerStroke.width)>=0?parseFloat(n.markerStroke.width):1}:{},y=n.markerFill?{fill:n.markerFill.enabled||!0,fillColor:n.markerFill.color||"0066ff99",fillOpacity:parseFloat(n.markerFill.opacity)>=0?parseFloat(n.markerFill.opacity):1,fillImageHref:n.markerFill.imageHref||""}:{},d=Object.assign(u,f,y,n.balloonOptions,n.options);"Circle"===i&&(n.coords=[n.coords,n.circleRadius]);var h=m({properties:l,options:d,markerType:i,coords:n.coords,clusterName:n.clusterName,callbacks:n.callbacks},this.useObjectManager);e.push(h)}return this.placemarks&&this.placemarks.forEach(function(r){var o=r.markerType,n=void 0===o?"Placemark":o,a=r.properties,i=r.options,s=void 0===i?{}:i,c=r.coords,l=r.clusterName,u=r.callbacks,f=r.balloonTemplate,y=p(n,t.useObjectManager);if(f){var d=ymaps.templateLayoutFactory.createClass(f);s.balloonContentLayout=d}var h=m({properties:a,options:s,markerType:y,coords:c,clusterName:l,callbacks:u},t.useObjectManager);e.push(h)}),e},setMarkers:function(){var t={options:this.clusterOptions,callbacks:this.clusterCallbacks,map:this.myMap,useObjectManager:this.useObjectManager,objectManagerClusterize:this.objectManagerClusterize};!function(t,e){var r=e.options,n=e.callbacks,a=e.map,i=e.useObjectManager,s=e.objectManagerClusterize,c={},l=[];if(t.forEach(function(t){t.clusterName?c[t.clusterName]=c[t.clusterName]?[].concat(o(c[t.clusterName]),[t]):[t]:l.push(t)}),Object.keys(c).forEach(function(t){var e=r[t]||{},o=n[t]||{},l=e.layout||"\n      <div>{{ properties.balloonContentHeader }}</div>\n      <div>{{ properties.balloonContentBody }}</div>\n      <div>{{ properties.balloonContentFooter }}</div>\n    ";e.clusterBalloonItemContentLayout=ymaps.templateLayoutFactory.createClass(l);var u=e.clusterLayout?ymaps.templateLayoutFactory.createClass(e.clusterLayout):e.clusterBalloonContentLayout||"cluster#balloonTwoColumns";e.clusterBalloonContentLayout=u;var p=e.clusterIconContentLayout;if(e.clusterIconContentLayout=p&&ymaps.templateLayoutFactory.createClass(p),i){var m=new ymaps.ObjectManager(Object.assign({clusterize:s},e));Object.keys(o).forEach(function(t){m.clusters.events.add(t,o[t])}),m.add(c[t]),a.geoObjects.add(m)}else{var f=new ymaps.Clusterer(e);Object.keys(o).forEach(function(t){f.events.add(t,o[t])}),e.createCluster&&(f.createCluster=e.createCluster),f.add(c[t]),a.geoObjects.add(f)}}),l.length){var u=i?new ymaps.ObjectManager({clusterize:!1}):new ymaps.GeoObjectCollection;l.forEach(function(t){return u.add(t)}),a.geoObjects.add(u)}}(this.createMarkers(),t)},init:function(){var t=this;if(window.ymaps&&ymaps.GeoObjectCollection&&(this.initWithoutMarkers||this.$slots.default||this.placemarks.length)){if(this.$emit("map-initialization-started"),this.myMap=new ymaps.Map(this.ymapId,{center:this.coordinates,zoom:+this.zoom,behaviors:this.behaviors,controls:this.controls,type:"yandex#".concat(this.mapType)},this.options),this.myMap.events.add("click",function(e){return t.$emit("click",e)}),this.zoomControl&&(this.myMap.controls.remove("zoomControl"),this.myMap.controls.add(new ymaps.control.ZoomControl(this.zoomControl))),this.detailedControls)Object.keys(this.detailedControls).forEach(function(e){t.myMap.controls.remove(e),t.myMap.controls.add(e,t.detailedControls[e])});!1===this.scrollZoom&&this.myMap.behaviors.disable("scrollZoom"),this.setMarkers(),this.$emit("map-was-initialized",this.myMap)}}},watch:{coordinates:function(t){this.myMap.panTo&&this.myMap.panTo(t)},placemarks:function(){window.ymaps&&(this.myMap.geoObjects&&this.myMap.geoObjects.removeAll(),this.setMarkers())},zoom:function(){this.myMap.setZoom(this.zoom)}},render:function(t){return t("section",{class:"ymap-container",ref:"mapContainer"},[t("div",{attrs:{id:this.ymapId,class:this.ymapClass,style:this.style}}),t("div",{ref:"markersContainer",attrs:{class:"ymap-markers"}},[this.$slots.default])])},mounted:function(){var t=this;if(this.$attrs["map-link"]||this.$attrs.mapLink)throw new Error("Vue-yandex-maps: Attribute mapLink is not supported. Use settings.");this.markerObserver=new MutationObserver(function(){t.myMap.geoObjects&&t.myMap.geoObjects.removeAll(),t.setMarkers()}),this.mapObserver=new MutationObserver(function(){t.myMap.container.fitToViewport()});var e=this.$refs,o=e.markersContainer,n=e.mapContainer;if(this.markerObserver.observe(o,{attributes:!0,childList:!0,characterData:!0,subtree:!0}),this.mapObserver.observe(n,{attributes:!0,childList:!0,characterData:!0,subtree:!1}),this.ymapEventBus.scriptIsNotAttached){var a=this.debug;f(function(t){for(var e=1;e<arguments.length;e++){var o=null!=arguments[e]?arguments[e]:{},n=Object.keys(o);"function"==typeof Object.getOwnPropertySymbols&&(n=n.concat(Object.getOwnPropertySymbols(o).filter(function(t){return Object.getOwnPropertyDescriptor(o,t).enumerable}))),n.forEach(function(e){r(t,e,o[e])})}return t}({},this.$options.pluginOptions,this.settings,{debug:a}))}this.ymapEventBus.ymapReady?ymaps.ready(this.init):this.ymapEventBus.$on("scriptIsLoaded",function(){t.ymapEventBus.updateMap=function(){t.myMap.geoObjects&&t.myMap.geoObjects.removeAll(),t.setMarkers()},ymaps.ready(t.init)})},beforeDestroy:function(){this.myMap.geoObjects&&this.myMap.geoObjects.removeAll(),this.markerObserver.disconnect()}},d=["placemark","polyline","rectangle","polygon","circle"],h={data:function(){return{ymapEventBus:c,unwatchArr:[]}},props:{coords:{type:Array,required:!0,validator:function(t){return!t.filter(function(t){return Number.isNaN(t)}).length}},hintContent:String,icon:Object,balloon:Object,markerType:{type:String,validator:function(t){return d.includes(t.toLowerCase())},default:"placemark"},markerFill:Object,markerStroke:Object,clusterName:String,circleRadius:{validator:function(t){return!Number.isNaN(t)},default:1e3},callbacks:Object,balloonTemplate:String,markerId:{type:[String,Number],required:!0},properties:Object,options:Object},render:function(){},mounted:function(){var t=this;Object.keys(this.$props).forEach(function(e){t.unwatchArr.push(t.$watch(e,function(e,r){return function(t,e,r){s(t,e)||(r.rerender&&clearTimeout(r.rerender),r.rerender=setTimeout(function(){return r.updateMap&&r.updateMap()},10))}(e,r,t.ymapEventBus)}))})},beforeDestroy:function(){this.unwatchArr.forEach(function(t){return t()})}};y.install=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};y.pluginOptions=e,t.component("yandex-map",y),t.component("ymap-marker",h)},"undefined"!=typeof window&&window.Vue&&window.Vue.use(y);var b=f,v=y,k=h;/* harmony default export */ __webpack_exports__["default"] = (y);
 
 
 /***/ }),
@@ -63361,6 +64368,7 @@ module.exports = function(module) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
+/* harmony import */ var vue_yandex_maps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-yandex-maps */ "./node_modules/vue-yandex-maps/dist/vue-yandex-maps.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -63372,6 +64380,14 @@ __webpack_require__(/*! uikit/dist/js/uikit.min */ "./node_modules/uikit/dist/js
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
+
+var settings = {
+  apiKey: '8ebea8f7-96e8-48de-b0b7-83d722db9b86',
+  lang: 'ru_RU',
+  coordorder: 'latlong',
+  version: '2.1'
+};
+Vue.use(vue_yandex_maps__WEBPACK_IMPORTED_MODULE_1__["default"], settings);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -63384,6 +64400,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('input-calc', __webpack_require__(/*! ./components/InputCalc.vue */ "./resources/js/components/InputCalc.vue")["default"]);
 Vue.component('results', __webpack_require__(/*! ./components/Results.vue */ "./resources/js/components/Results.vue")["default"]);
+Vue.component('delivery-points-map', __webpack_require__(/*! ./components/DeliveryPointsMap.vue */ "./resources/js/components/DeliveryPointsMap.vue")["default"]);
 Object.defineProperty(Vue.prototype, '$bus', {
   get: function get() {
     return this.$root.bus;
@@ -63450,6 +64467,93 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/DeliveryPointsMap.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/DeliveryPointsMap.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DeliveryPointsMap_vue_vue_type_template_id_4263eaec_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true& */ "./resources/js/components/DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true&");
+/* harmony import */ var _DeliveryPointsMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeliveryPointsMap.vue?vue&type=script&lang=js& */ "./resources/js/components/DeliveryPointsMap.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _DeliveryPointsMap_vue_vue_type_style_index_0_id_4263eaec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css& */ "./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _DeliveryPointsMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DeliveryPointsMap_vue_vue_type_template_id_4263eaec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DeliveryPointsMap_vue_vue_type_template_id_4263eaec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "4263eaec",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DeliveryPointsMap.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DeliveryPointsMap.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/DeliveryPointsMap.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DeliveryPointsMap.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css& ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_style_index_0_id_4263eaec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=style&index=0&id=4263eaec&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_style_index_0_id_4263eaec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_style_index_0_id_4263eaec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_style_index_0_id_4263eaec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_style_index_0_id_4263eaec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_style_index_0_id_4263eaec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_template_id_4263eaec_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeliveryPointsMap.vue?vue&type=template&id=4263eaec&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_template_id_4263eaec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeliveryPointsMap_vue_vue_type_template_id_4263eaec_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

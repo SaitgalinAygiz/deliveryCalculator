@@ -9,6 +9,18 @@ require('uikit/dist/js/uikit.min');
 window.Vue = require('vue');
 
 import store from './store/index';
+import YmapPlugin from 'vue-yandex-maps'
+
+const settings = {
+    apiKey: '8ebea8f7-96e8-48de-b0b7-83d722db9b86',
+    lang: 'ru_RU',
+    coordorder: 'latlong',
+    version: '2.1'
+};
+
+Vue.use(YmapPlugin, settings);
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,6 +35,7 @@ import store from './store/index';
 
 Vue.component('input-calc', require('./components/InputCalc.vue').default);
 Vue.component('results', require('./components/Results.vue').default);
+Vue.component('delivery-points-map', require('./components/DeliveryPointsMap.vue').default);
 
 
 Object.defineProperty(Vue.prototype, '$bus',{

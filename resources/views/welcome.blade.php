@@ -5,7 +5,7 @@
 
 
     <div class="uk-container uk-flex@s uk-flex-center uk-margin-small-top uk-background-default uk-padding-large ">
-        <div class="uk-heading-small ">
+        <div id="calc-heading" class="uk-heading-small ">
             Рассчитать стоимость доставки груза через API транспортных компаний
         </div>
 
@@ -17,7 +17,6 @@
         </div>
 
 
-
         <input-calc>
 
         </input-calc>
@@ -26,7 +25,10 @@
 
         <results>
 
+
         </results>
+
+
 
     </div>
 

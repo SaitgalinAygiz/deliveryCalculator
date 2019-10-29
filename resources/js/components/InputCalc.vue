@@ -1,7 +1,9 @@
 <template>
 
-        <form method="post" action="javascript:void(0);" @submit="createResult(result)" >
+        <form method="POST" action="javascript:void(0);" @submit="createResult(result)" >
 
+            @csrf
+            @method('POST')
             <fieldset class=" uk-fieldset uk-margin-medium-top">
 
                 <div class="uk-flex">
@@ -9,7 +11,6 @@
                         <label class="uk-form-label  " for="form-stacked-text">Город отправления</label>
                         <div class="uk-form-controls">
                             <input class="uk-input" id="form-stacked-text" v-model="result.cityFrom" type="text" placeholder="Екатеринбург">
-
                         </div>
                     </div>
 
@@ -54,12 +55,17 @@
 
 
 
-                <div class="uk-margin-large-top uk-grid-small uk-child-width-2-6@m" uk-grid>
+                <div class="uk-margin-large-top uk-grid-small uk-child-width-1-3@s" uk-grid>
                     <label><input id="nrg-checkbox" class="uk-checkbox" v-model="result.nrgCheckbox" type="checkbox" checked> Энергия</label>
-                    <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox"> ПЭК </label>
+                    <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox" checked> ПЭК </label>
                     <label><input id="dellin-checkbox" class="uk-checkbox" v-model="result.dellinCheckbox" type="checkbox"> Деловые Линии</label>
-                    <label><input id="baikal-checkbox" class="uk-checkbox" v-model="result.baikalCheckbox" type="checkbox"> Байкал сервис</label>
-                    <label><input id="gtd-checkbox" class="uk-checkbox" v-model="result.gtdCheckbox" type="checkbox"> GTD</label>
+                    <label><input id="baikal-checkbox" class="uk-checkbox" v-model="result.baikalCheckbox" type="checkbox" checked> Байкал сервис</label>
+                    <label><input id="gtd-checkbox" class="uk-checkbox" v-model="result.gtdCheckbox" type="checkbox" checked> GTD</label>
+                    <label><input id="vozovoz-checkbox" class="uk-checkbox" v-model="result.vozovozCheckbox" type="checkbox" checked> Возовоз</label>
+                    <label><input id="glavdostavka-checkbox" class="uk-checkbox" v-model="result.glavdostavkaCheckbox" type="checkbox" checked> Главдоставка</label>
+                    <label><input id="jde-checkbox" class="uk-checkbox" v-model="result.jdeCheckbox" type="checkbox" checked> ЖелДорЭкспедиция</label>
+                    <label><input id="dimex-checkbox" class="uk-checkbox" v-model="result.dimexCheckbox" type="checkbox" checked> Dimex</label>
+
 
                 </div>
 
@@ -85,7 +91,7 @@
             return {
                 result: {
                     cityFrom: 'Москва',
-                    cityTo: 'Санкт-Петербург',
+                    cityTo: 'Уфа',
                     weight: '1',
                     width: '100',
                     height: '100',
@@ -95,6 +101,10 @@
                     dellinCheckbox: false,
                     baikalCheckbox: false,
                     gtdCheckbox: false,
+                    vozovozCheckbox: false,
+                    glavdostavkaCheckbox: false,
+                    jdeCheckbox: false,
+                    dimexCheckbox: false
                 }
         }
         },
@@ -123,7 +133,9 @@
                 return this.result.cityFrom !== '' && this.result.cityTo !== ''  && this.result.weight !== ''
                     && this.result.width !== ''  && this.result.height !== ''  && this.result.length !== ''
                 && this.result.length > 0 && this.result.height > 0 && this.result.weight > 0
-                && this.result.width > 0 && ( this.result.nrgCheckbox || this.result.pecomCheckbox || this.result.dellinCheckbox || this.result.baikalCheckbox || this.result.gtdCheckbox)
+                && this.result.width > 0 && ( this.result.nrgCheckbox || this.result.pecomCheckbox ||
+                        this.result.dellinCheckbox || this.result.baikalCheckbox || this.result.gtdCheckbox || this.result.vozovozCheckbox ||
+                        this.result.glavdostavkaCheckbox || this.result.jdeCheckbox || this.result.dimexCheckbox)
                 && !this.result.width.includes('.') && !this.result.height.includes('.') && !this.result.length.includes('.')
                     && !this.result.weight.includes('.')
 

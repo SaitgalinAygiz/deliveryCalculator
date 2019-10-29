@@ -102,7 +102,6 @@ class gtdApi
         $results->logo = '/storage/images/gtd-logo.png';
 
 
-
         return $results;
 
     }

@@ -71,10 +71,32 @@ class baikalApi
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
                 'Authorization' => ['Basic '.$credentials],
-
-
             ],
         ]);
+
+    }
+
+    public function getBranchCoords($cityId) {
+
+        $responseBranches = $this->client->get('https://api.baikalsr.ru/v1/affiliate/find?guid='.$cityId)->getBody()->getContents();
+
+        $responseBranchesDecode = json_decode($responseBranches);
+
+
+        $coords = [];
+        $allCoords = [];
+        foreach ($responseBranchesDecode->terminals as $branch) {
+            $explodeResults = explode(',', $branch->map);
+            array_push($coords, (float)$explodeResults['0'], (float)$explodeResults['1']);
+            array_push($allCoords, $coords);
+            $coords = [];
+
+        }
+
+
+        return $allCoords;
+
+
 
     }
 
@@ -114,11 +136,17 @@ class baikalApi
             return 'no results';
         }
 
-        $responseDecode->price = (integer) $responseDecode->total->int;
 
+        $responseDecode->price = (integer) $responseDecode->total->int;
         $responseDecode->company = 'Байкал';
         $responseDecode->logo = '/storage/images/baikal-logo.png';
         $responseDecode->interval = (string) $responseDecode->transit->int . ' ' . $responseDecode->transit->day;
+
+        $branches = $this->getBranchCoords($cityTo);
+
+        $responseDecode->branches = $branches;
+
+
 
 
         return $responseDecode;

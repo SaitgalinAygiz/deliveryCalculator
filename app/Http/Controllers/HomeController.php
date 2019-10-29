@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\baikalApi;
+use App\cdekApi;
 use App\dellinApi;
+use App\dimexApi;
+use App\glavdostavkaApi;
 use App\gtdApi;
+use App\jdeApi;
 use App\nrgApi;
 use App\pecomApi;
+use App\vozovozApi;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -20,9 +25,8 @@ class HomeController extends Controller
 
 
         /*
-
-        $cityFrom = 'Уфа';
-        $cityTo = 'Москва';
+        $cityFrom = 'Москва';
+        $cityTo = 'Санкт-Петербург';
         $weight = 1;
         $width = 100;
         $height = 100;
@@ -31,26 +35,26 @@ class HomeController extends Controller
 
         $results = [];
 
-        $pecomApi = new pecomApi();
-        $cityFromId = $pecomApi->getCityId($cityFrom);
-        $cityToId = $pecomApi->getCityId($cityTo);
+        $baikalApi = new baikalApi();
 
+        $cityFromId = $baikalApi->getCityId($cityFrom);
+        $cityToId = $baikalApi->getCityId($cityTo);
 
         if ($cityFromId == 'no results' || $cityToId == 'no results') {
             //no results
         } else {
-            $gtdApiPriceResult = $pecomApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+            $cdekApiPriceResult = $baikalApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
 
-            if ($gtdApiPriceResult == 'no results') {
+            if ($cdekApiPriceResult == 'no results') {
                 //no results
             } else {
-                array_push($results, $gtdApiPriceResult);
+                array_push($results, $cdekApiPriceResult);
             }
         }
 
+        dd($results);
+
         */
-
-
 
 
 

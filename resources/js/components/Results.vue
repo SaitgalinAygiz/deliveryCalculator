@@ -33,6 +33,9 @@
             </tbody>
         </table>
 
+        <delivery-points-map>
+
+        </delivery-points-map>
 
     </div>
 </div>
@@ -45,8 +48,6 @@
     export default {
         name: "Results",
 
-
-
         data() {
             return {
                 cityFrom: '',
@@ -56,7 +57,6 @@
             }
 
         },
-
 
         mounted() {
 
@@ -79,8 +79,6 @@
             }
 
         },
-
-
 
         computed: {
             ...mapGetters([

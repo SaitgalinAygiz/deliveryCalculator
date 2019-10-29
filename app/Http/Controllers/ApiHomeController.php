@@ -6,9 +6,13 @@ namespace App\Http\Controllers;
 
 use App\baikalApi;
 use App\dellinApi;
+use App\dimexApi;
+use App\glavdostavkaApi;
 use App\gtdApi;
+use App\jdeApi;
 use App\nrgApi;
 use App\pecomApi;
+use App\vozovozApi;
 use Illuminate\Http\Request;
 
 class ApiHomeController extends Controller
@@ -30,6 +34,10 @@ class ApiHomeController extends Controller
         $pecomCheckbox = $request->get('pecomCheckbox');
         $baikalCheckbox = $request->get('baikalCheckbox');
         $gtdCheckbox = $request->get('gtdCheckbox');
+        $vozovozCheckbox = $request->get('vozovozCheckbox');
+        $glavdostavkaCheckbox = $request->get('glavdostavkaCheckbox');
+        $jdeCheckbox = $request->get('jdeCheckbox');
+        $dimexCheckbox = $request->get('dimexCheckbox');
 
 
         $results = [];
@@ -135,13 +143,71 @@ class ApiHomeController extends Controller
                     array_push($results, $gtdApiPriceResult);
                 }
             }
+        }
 
+        if ($vozovozCheckbox !== false) {
+
+            $vozovozApi = new vozovozApi();
+            $vozovozApiPriceResult = $vozovozApi->price($cityFrom, $cityTo, $weight, $width, $height, $length);
+            if ($vozovozApiPriceResult == 'no results') {
+                //no results
+            } else {
+                array_push($results, $vozovozApiPriceResult);
+            }
+        }
+
+        if ($glavdostavkaCheckbox !== false) {
+
+            $glavdostavkaApi = new glavdostavkaApi();
+
+            $cityFromId = $glavdostavkaApi->getCityId($cityFrom);
+            $cityToId = $glavdostavkaApi->getCityId($cityTo);
+
+            if ($cityFromId == 'no results' || $cityToId == 'no results') {
+                //no results
+            } else {
+
+                $vozovozApiPriceResult = $glavdostavkaApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+                if ($vozovozApiPriceResult == 'no results') {
+                    //no results
+                } else {
+                    array_push($results, $vozovozApiPriceResult);
+                }
+            }
+        }
+
+        if ($jdeCheckbox !== false) {
+            $jdeApi = new jdeApi();
+
+            $jdeApiPriceResult = $jdeApi->price($cityFrom, $cityTo, $weight, $width, $height, $length);
+
+            if ($jdeApiPriceResult == 'no results') {
+                //no results
+            } else {
+                array_push($results, $jdeApiPriceResult);
+            }
 
         }
 
+        if ($dimexCheckbox !== false) {
+            $dimexApi = new dimexApi();
 
+            $cityFromId = $dimexApi->getCityId($cityFrom);
+            $cityToId = $dimexApi->getCityId($cityTo);
 
+            if ($cityFromId == 'no results' || $cityToId == 'no results') {
+                //no results
+            } else {
 
+                $dimexApiPriceResult = $dimexApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
+
+                if ($dimexApiPriceResult == 'no results') {
+                    //no results
+                } else {
+                    array_push($results, $dimexApiPriceResult);
+                }
+            }
+        }
 
 
 

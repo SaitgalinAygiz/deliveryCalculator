@@ -19,9 +19,21 @@ class pecomApi
             $cityTitle = 'Москва Восток';
         }
 
+        if ($cityTitle == 'Краснодар') {
+            $cityTitle = 'КрасноДАР';
+        }
+
         return [
             'json' => [
                 'title' => $cityTitle,
+            ]
+        ];
+    }
+
+    private function idParams($cityId) {
+        return [
+            'json' => [
+                'id' => $cityId
             ]
         ];
     }
@@ -79,26 +91,54 @@ class pecomApi
 
     public function getCityId($cityTitle) {
 
-        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/all/')->getBody()->getContents();
+        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/findbytitle/', $this->getCityParams($cityTitle))->getBody()->getContents();
 
-        $citiesResponseDecode = json_decode(mb_strtolower($citiesResponse));
+        $citiesResponseDecode = json_decode($citiesResponse);
 
-
-        $cityTitle = mb_strtolower($cityTitle);
-
-        if ($cityTitle == 'москва') {
-            $cityTitle = 'москва восток';
+        if (empty($citiesResponseDecode->items['0']->branchId)) {
+            return 'no results';
         }
 
-        foreach ($citiesResponseDecode->branches as $city) {
-            if ($cityTitle == $city->title) {
-                $cityId = $city->bitrixid;
-            }
-        }
+
+
+        $cityId = $citiesResponseDecode->items['0']->branchId;
+
 
 
         if (!empty($cityId)) {
             return $cityId;
+        } else {
+            return 'no results';
+        }
+    }
+
+
+    public function getBranchCoords($cityId) {
+
+        $responseBranches =  $this->client->post('https://kabinet.pecom.ru/api/v1/branches/all/')->getBody()->getContents();
+
+        $responseBranchesDecode = json_decode($responseBranches);
+
+        $coords = [];
+        $allCoords = [];
+
+        foreach ($responseBranchesDecode->branches as $branch) {
+            if ($cityId == $branch->bitrixId) {
+                foreach ($branch->divisions as $division) {
+                    foreach ($division->warehouses as $warehouse) {
+                        $explodeResults = explode(',', $warehouse->coordinates);
+                        array_push($coords, (float)$explodeResults['0'], (float)$explodeResults['1']);
+                    }
+                    array_push($allCoords, $coords);
+
+                    $coords = [];
+                }
+            }
+        }
+
+
+        if (!empty($allCoords)) {
+            return $allCoords;
         } else {
             return 'no results';
         }
@@ -127,18 +167,19 @@ class pecomApi
 
 
 
-
         $results->price = (integer) $response->transfers[0]->costTotal;
 
         if (isset($response->commonTerms[0]->transportingWithDeliveryWithPickup)) {
-
             $results->interval = $response->commonTerms[0]->transportingWithDeliveryWithPickup;
             $results->interval = str_replace(' ','', $results->interval) . ' дней';
-
         }
+
         $results->company = 'ПЭК';
         $results->logo = '/storage/images/logo-pek.png';
 
+        $branches = $this->getBranchCoords($cityTo);
+
+        $results->branches = $branches;
 
         return $results;
 
