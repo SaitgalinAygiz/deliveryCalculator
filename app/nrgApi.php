@@ -63,8 +63,40 @@ class nrgApi
 
     }
 
+
+    public function getBranchCoords($cityId) {
+
+        $responseBranches = $this->client->get('https://mainapi.nrg-tk.ru/v3/cities')->getBody()->getContents();
+
+
+        $responseBranchesDecode = json_decode($responseBranches);
+
+
+        $coords = [];
+        $allCoords = [];
+
+        foreach ($responseBranchesDecode->cityList as $city) {
+            if ($cityId == $city->id) {
+                foreach ($city->warehouses as $warehouse) {
+                    if ($warehouse->isIssuer == 1) {
+
+                        array_push($coords, (float)$warehouse->latitude, (float)$warehouse->longitude);
+                        array_push($allCoords, $coords);
+                        $coords = [];
+                    }
+                }
+            }
+        }
+
+        return $allCoords;
+
+    }
+
+
+
     public function getCityId($cityTitle) {
         $citiesResponse = $this->client->get('https://mainapi.nrg-tk.ru/v3/cities')->getBody()->getContents();
+
 
         $cities = json_decode(mb_strtolower($citiesResponse));
 
@@ -96,18 +128,23 @@ class nrgApi
 
         $response =  $this->client->post('https://mainapi.nrg-tk.ru/v3/price', $this->priceParams())->getBody();
 
-        $json = json_decode($response);
+        $results = json_decode($response);
 
-        if(empty($json->transfer[0])) {
+        if(empty($results->transfer[0])) {
             return 'no results';
         }
 
-        $json = $json->transfer[0];
-        $json->company = 'Энергия';
-        $json->logo = '/storage/images/nrg-logo.png';
+        $results = $results->transfer[0];
+        $results->company = 'Энергия';
+        $results->logo = '/storage/images/nrg-logo.png';
 
 
-        return $json;
+        $branches = $this->getBranchCoords($cityTo);
+
+        $results->branches = $branches;
+
+
+        return $results;
 
     }
 

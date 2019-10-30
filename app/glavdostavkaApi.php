@@ -64,6 +64,7 @@ class glavdostavkaApi
 
         $citiesResponseDecode = json_decode($citiesResponse);
 
+
         foreach ($citiesResponseDecode as $city) {
             if ($cityTitle == $city->name) {
                 $cityId = $city->id;

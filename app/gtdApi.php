@@ -13,6 +13,16 @@ class gtdApi
     private $cityFrom, $cityTo, $weight, $width, $height, $length;
 
 
+    private function branchParams($cityId)
+    {
+        return [
+            'json' => [
+                'geography_city_id' => $cityId
+            ]
+        ];
+
+    }
+
     private function priceParams() {
         return [
             'json' =>  [
@@ -49,6 +59,39 @@ class gtdApi
 
     }
 
+    public function getBranchCoords($cityId) {
+
+        $responseCities = $this->client->post('https://capi.gtdel.com/1.0/geography/city/get-list', $this->branchParams($cityId))->getBody()->getContents();
+
+        $responseCitiesDecode = json_decode($responseCities);
+
+        foreach ($responseCitiesDecode as $city) {
+            if ($cityId == $city->tdd_city_code) {
+                $geoCityId = $city->id;
+            }
+        }
+
+
+        $responseBranches = $this->client->post('https://capi.gtdel.com/1.0/geography/address/get-list', $this->branchParams($geoCityId))->getBody()->getContents();
+
+        $responseBranchesDecode = json_decode($responseBranches);
+
+
+
+        $coords = [];
+        $allCoords = [];
+        foreach ($responseBranchesDecode as $branch) {
+            array_push($coords, (float)$branch->lat, (float)$branch->lon);
+            array_push($allCoords, $coords);
+            $coords = [];
+        }
+
+
+
+        return $allCoords;
+
+    }
+
 
 
     public function getCityId($cityTitle) {
@@ -66,6 +109,7 @@ class gtdApi
                 $cityId = $city->code;
             }
         }
+
 
 
         if (!empty($cityId)) {
@@ -101,9 +145,16 @@ class gtdApi
         $results->interval = $results->time . ' дней';
         $results->logo = '/storage/images/gtd-logo.png';
 
+        $branches = $this->getBranchCoords($cityTo);
+
+        $results->branches = $branches;
+
+
 
         return $results;
 
     }
+
+
 
 }

@@ -6,15 +6,15 @@
 
 
         <yandex-map
-            :coords="[54.734773, 55.957829]"
-            :zoom="11"
+            :coords=this.coords
+            :zoom="12"
         >
 
             <template v-for="result in results">
 
                 <ymap-marker
                     v-for="branch in result.branches"
-                    v-bind:key="branch[0]"
+                    v-bind:key="[branch[0], branch[1]].toString()"
                     v-bind:coords="[branch[0], branch[1]]"
                     v-bind:icon="markerIcon(result.company)"
                     markerId="123"
@@ -56,14 +56,38 @@
 
         mounted() {
 
-            this.$store.dispatch('fetchResult');
 
+            this.$store.dispatch('fetchResult');
+            this.$store.dispatch('fetchCoords');
+
+
+        },
+
+        watch: {
+            coords() {
+                if (this.coord[0] === undefined){
+                    return [54, 55];
+                } else {
+                    return [this.coord[0][0], this.coord[0][1]];
+                }
+
+            }
         },
 
         computed: {
             ...mapGetters([
-                'results'
-            ])
+                'results',
+                'coord'
+            ]),
+
+            coords() {
+                if (this.coord[0] === undefined){
+                    return [54, 55];
+                } else {
+                    return [this.coord[0][1], this.coord[0][0]];
+                }
+
+            }
         },
 
 
@@ -73,7 +97,7 @@
 <style scoped>
 
     .ymap-container {
-        height: 400px;
+        height: 600px;
     }
 
 </style>

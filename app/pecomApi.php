@@ -126,12 +126,15 @@ class pecomApi
             if ($cityId == $branch->bitrixId) {
                 foreach ($branch->divisions as $division) {
                     foreach ($division->warehouses as $warehouse) {
-                        $explodeResults = explode(',', $warehouse->coordinates);
-                        array_push($coords, (float)$explodeResults['0'], (float)$explodeResults['1']);
-                    }
-                    array_push($allCoords, $coords);
+                        if ($warehouse->isWarehouseAcceptsFreights == true) {
+                            $explodeResults = explode(',', $warehouse->coordinates);
+                            array_push($coords, (float)$explodeResults['0'], (float)$explodeResults['1']);
+                            array_push($allCoords, $coords);
 
-                    $coords = [];
+                            $coords = [];
+                        }
+                    }
+
                 }
             }
         }
@@ -169,13 +172,18 @@ class pecomApi
 
         $results->price = (integer) $response->transfers[0]->costTotal;
 
+        /*
         if (isset($response->commonTerms[0]->transportingWithDeliveryWithPickup)) {
             $results->interval = $response->commonTerms[0]->transportingWithDeliveryWithPickup;
             $results->interval = str_replace(' ','', $results->interval) . ' дней';
         }
 
+        */
+
+        $results->interval = 'уточняйте';
+
         $results->company = 'ПЭК';
-        $results->logo = '/storage/images/logo-pek.png';
+        $results->logo = '/storage/images/logo-pek.jpg';
 
         $branches = $this->getBranchCoords($cityTo);
 

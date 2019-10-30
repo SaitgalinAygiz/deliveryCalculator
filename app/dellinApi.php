@@ -16,6 +16,13 @@ class dellinApi
     private $cityTitle;
 
 
+    private function branchParams() {
+        return [ 'json' => [
+            'appkey' => 'B38AE3E7-F8BF-4604-ACF5-861ECDEBF615'
+        ]];
+    }
+
+
     private function cityParams($cityTitle) {
         return [
             'json' => [
@@ -56,9 +63,46 @@ class dellinApi
 
 
 
+    public function getBranchCoords($cityId) {
+
+
+        $branchesResponseUrl = json_decode($this->client->post('https://api.dellin.ru/v3/public/terminals.json', $this->branchParams())->getBody()->getContents());
+
+
+        $branchesResponse = json_decode($this->client->get($branchesResponseUrl->url)->getBody()->getContents());
+
+
+        $coords = [];
+        $allCoords = [];
+
+        foreach ($branchesResponse->city as $city) {
+
+            if ($cityId == $city->code) {
+                foreach ($city->terminals->terminal as $terminal) {
+                    if ($terminal->isPVZ == true) {
+                        array_push($coords, (float)$terminal->latitude, (float)$terminal->longitude);
+                        array_push($allCoords, $coords);
+                        $coords = [];
+                    }
+                }
+
+            }
+        }
+
+
+
+        return $allCoords;
+
+
+    }
+
+
     public function getCityId($cityTitle) {
 
         $citiesResponse = $this->client->post('https://api.dellin.ru/v2/public/kladr.json', $this->cityParams($cityTitle))->getBody()->getContents();
+
+
+
 
         $citiesResponse = json_decode($citiesResponse);
 
@@ -87,6 +131,8 @@ class dellinApi
             return 'no results';
         }
 
+
+        //Я первый раз писал, мб потом нормально сделаю
         $interval = $json->time->genitive;
         $price = $json->price;
         $json = $json->time;
@@ -94,6 +140,10 @@ class dellinApi
         $json->price = (integer) $price;
         $json->company = 'Деловые Линии';
         $json->logo = '/storage/images/dellin.png';
+
+        $branches = $this->getBranchCoords($cityTo);
+
+        $json->branches = $branches;
 
 
         return $json;

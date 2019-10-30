@@ -96,8 +96,6 @@ class baikalApi
 
         return $allCoords;
 
-
-
     }
 
 

@@ -1899,8 +1899,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     this.$store.dispatch('fetchResult');
+    this.$store.dispatch('fetchCoords');
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['results']))
+  watch: {
+    coords: function coords() {
+      if (this.coord[0] === undefined) {
+        return [54, 55];
+      } else {
+        return [this.coord[0][0], this.coord[0][1]];
+      }
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['results', 'coord']), {
+    coords: function coords() {
+      if (this.coord[0] === undefined) {
+        return [54, 55];
+      } else {
+        return [this.coord[0][1], this.coord[0][0]];
+      }
+    }
+  })
 });
 
 /***/ }),
@@ -1914,8 +1932,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -2120,6 +2136,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     this.$store.dispatch('fetchResult');
+    this.$store.dispatch('fetchCoords');
     this.$bus.$on('sendCities', function (result) {
       _this.viewLoader = true;
       _this.cityFrom = result.cityFrom;
@@ -2128,10 +2145,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   updated: function updated() {
     if (this.hideResults === true) {
+      var setHeight = function setHeight() {
+        imageHeight = images[0].clientWidth / ratio;
+
+        for (var i = 0; i < images.length; i++) {
+          images[i].style.height = imageHeight + "px";
+        }
+      };
+
       document.getElementById('bottomLink').click();
+      var images = document.querySelectorAll("td > img");
+      var ratio = 250 / 50,
+          imageHeight;
+      setHeight();
+
+      window.onresize = function () {
+        setHeight();
+      };
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['results']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['results', 'coords']), {
     hideResults: function hideResults() {
       this.viewLoader = false;
       return this.results.length > 0;
@@ -6598,7 +6631,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.ymap-container[data-v-4263eaec] {\n    height: 400px;\n}\n\n", ""]);
+exports.push([module.i, "\n.ymap-container[data-v-4263eaec] {\n    height: 600px;\n}\n\n", ""]);
 
 // exports
 
@@ -50276,12 +50309,12 @@ var render = function() {
       _vm._v(" "),
       _c(
         "yandex-map",
-        { attrs: { coords: [54.734773, 55.957829], zoom: 11 } },
+        { attrs: { coords: this.coords, zoom: 12 } },
         [
           _vm._l(_vm.results, function(result) {
             return _vm._l(result.branches, function(branch) {
               return _c("ymap-marker", {
-                key: branch[0],
+                key: [branch[0], branch[1]].toString(),
                 attrs: {
                   coords: [branch[0], branch[1]],
                   icon: _vm.markerIcon(result.company),
@@ -50330,7 +50363,6 @@ var render = function() {
       }
     },
     [
-      _vm._v("\n\n    @csrf\n    @method('POST')\n    "),
       _c("fieldset", { staticClass: " uk-fieldset uk-margin-medium-top" }, [
         _c("div", { staticClass: "uk-flex" }, [
           _c("div", { staticClass: " uk-margin-right uk-width-1-2" }, [
@@ -50669,7 +50701,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" ПЭК ")
+              _vm._v(" ПЭК (долго отвечает) ")
             ]),
             _vm._v(" "),
             _c("label", [
@@ -50718,7 +50750,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" Деловые Линии")
+              _vm._v(" Деловые Линии (долго отвечает)")
             ]),
             _vm._v(" "),
             _c("label", [
@@ -51088,7 +51120,7 @@ var render = function() {
           }
         ],
         staticClass:
-          "uk-flex@s uk-flex-center  uk-background-default uk-padding-large uk-padding-remove-top  uk-table-middle"
+          "uk-flex@s uk-flex-center uk-padding-large  uk-background-default uk-padding-remove-top  uk-table-middle"
       },
       [
         _c(
@@ -51110,7 +51142,7 @@ var render = function() {
           "table",
           {
             staticClass:
-              "uk-table uk-table-divider uk-table-large uk-table-hover "
+              "uk-table uk-table-large uk-table-divider  uk-table-hover "
           },
           [
             _vm._m(0),
@@ -51124,8 +51156,8 @@ var render = function() {
                       attrs: {
                         id: "company-image",
                         "data-src": result.logo,
-                        width: "230",
-                        height: "40",
+                        width: "250",
+                        height: "50",
                         alt: "",
                         "uk-img": ""
                       }
@@ -64712,10 +64744,19 @@ var actions = {
     })["catch"](function (err) {
       console.log(err);
     });
+    axios.post('/api/coordinates/', result).then(function (res) {
+      commit('CREATE_COORDS', res);
+    })["catch"](function (err) {
+      console.log(err);
+    });
   },
   fetchResult: function fetchResult(_ref2) {
     var commit = _ref2.commit;
     commit('FETCH_RESULT');
+  },
+  fetchCoords: function fetchCoords(_ref3) {
+    var commit = _ref3.commit;
+    commit('FETCH_COORDS');
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (actions);
@@ -64734,6 +64775,9 @@ __webpack_require__.r(__webpack_exports__);
 var getters = {
   results: function results(state) {
     return state.results;
+  },
+  coord: function coord(state) {
+    return state.coord;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (getters);
@@ -64795,6 +64839,14 @@ var mutations = {
       }
     }
   },
+  CREATE_COORDS: function CREATE_COORDS(state, coord) {
+    state.coord = [];
+    state.coord.unshift(coord.data);
+  },
+  FETCH_COORDS: function FETCH_COORDS(state) {
+    console.log(state.coord);
+    return state.coord;
+  },
   FETCH_RESULT: function FETCH_RESULT(state) {
     return state.results;
   }
@@ -64813,7 +64865,8 @@ var mutations = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var state = {
-  results: []
+  results: [],
+  coord: []
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);
 

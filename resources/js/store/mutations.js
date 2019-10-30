@@ -11,8 +11,14 @@ const mutations = {
             }
         }
 
-
-
+    },
+    CREATE_COORDS(state, coord) {
+        state.coord = [];
+        state.coord.unshift(coord.data);
+    },
+    FETCH_COORDS(state) {
+        console.log(state.coord);
+        return state.coord
     },
     FETCH_RESULT(state) {
         return state.results

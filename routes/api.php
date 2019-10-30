@@ -16,3 +16,4 @@ use App\Http\Controllers\ApiHomeController;
 
 
 Route::post('calculate', 'ApiHomeController@calculate');
+Route::post('coordinates', 'ApiGeoController@coordinates');

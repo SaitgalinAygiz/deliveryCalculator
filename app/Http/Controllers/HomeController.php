@@ -12,6 +12,7 @@ use App\jdeApi;
 use App\nrgApi;
 use App\pecomApi;
 use App\vozovozApi;
+use App\yandexGeoApi;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -23,39 +24,18 @@ class HomeController extends Controller
     public function index()
     {
 
-
         /*
-        $cityFrom = 'Москва';
-        $cityTo = 'Санкт-Петербург';
-        $weight = 1;
-        $width = 100;
-        $height = 100;
-        $length = 100;
 
+        $cityTitle = 'Москва';
 
-        $results = [];
+        $yandexGeoApi = new yandexGeoApi();
 
-        $baikalApi = new baikalApi();
+        $results = $yandexGeoApi->coords($cityTitle);
 
-        $cityFromId = $baikalApi->getCityId($cityFrom);
-        $cityToId = $baikalApi->getCityId($cityTo);
-
-        if ($cityFromId == 'no results' || $cityToId == 'no results') {
-            //no results
-        } else {
-            $cdekApiPriceResult = $baikalApi->price($cityFromId, $cityToId, $weight, $width, $height, $length);
-
-            if ($cdekApiPriceResult == 'no results') {
-                //no results
-            } else {
-                array_push($results, $cdekApiPriceResult);
-            }
-        }
 
         dd($results);
 
         */
-
 
 
 

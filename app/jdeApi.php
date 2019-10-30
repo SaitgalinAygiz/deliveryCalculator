@@ -29,7 +29,7 @@ class jdeApi
                 'height' => $this->height,
                 'quantity' => 1,
                 'user' => 2252177796428553,
-                'token' => 195658567888696640,
+                'token' => 8782900796586101014,
             ]
         ];
     }
@@ -48,6 +48,26 @@ class jdeApi
     }
 
 
+    public function getBranchCoords($cityTitle) {
+
+        $response = $this->client->get('https://api.jde.ru/vD/geo/search?mode=2')->getBody()->getContents();
+
+        $responseDecode = json_decode($response);
+
+        $coords = [];
+        $allCoords = [];
+
+        foreach($responseDecode as $terminal) {
+            if ($terminal->city == $cityTitle) {
+                array_push($coords, (float)$terminal->coords->lat, (float)$terminal->coords->lng);
+                array_push($allCoords, $coords);
+                $coords = [];
+            }
+        }
+
+        return $allCoords;
+
+    }
 
 
     public function price ($cityFrom, $cityTo, $weight, $width, $height, $length) {
@@ -77,6 +97,10 @@ class jdeApi
         }
 
         $responseDecode->logo = '/storage/images/jde-logo.png';
+
+        $branches = $this->getBranchCoords($cityTo);
+
+        $responseDecode->branches = $branches;
 
 
 

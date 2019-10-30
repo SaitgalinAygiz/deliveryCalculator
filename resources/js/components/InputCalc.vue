@@ -2,8 +2,6 @@
 
         <form method="POST" action="javascript:void(0);" @submit="createResult(result)" >
 
-            @csrf
-            @method('POST')
             <fieldset class=" uk-fieldset uk-margin-medium-top">
 
                 <div class="uk-flex">
@@ -57,8 +55,8 @@
 
                 <div class="uk-margin-large-top uk-grid-small uk-child-width-1-3@s" uk-grid>
                     <label><input id="nrg-checkbox" class="uk-checkbox" v-model="result.nrgCheckbox" type="checkbox" checked> Энергия</label>
-                    <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox" checked> ПЭК </label>
-                    <label><input id="dellin-checkbox" class="uk-checkbox" v-model="result.dellinCheckbox" type="checkbox"> Деловые Линии</label>
+                    <label><input id="pecom-checkbox" class="uk-checkbox" v-model="result.pecomCheckbox" type="checkbox" checked> ПЭК (долго отвечает) </label>
+                    <label><input id="dellin-checkbox" class="uk-checkbox" v-model="result.dellinCheckbox" type="checkbox"> Деловые Линии (долго отвечает)</label>
                     <label><input id="baikal-checkbox" class="uk-checkbox" v-model="result.baikalCheckbox" type="checkbox" checked> Байкал сервис</label>
                     <label><input id="gtd-checkbox" class="uk-checkbox" v-model="result.gtdCheckbox" type="checkbox" checked> GTD</label>
                     <label><input id="vozovoz-checkbox" class="uk-checkbox" v-model="result.vozovozCheckbox" type="checkbox" checked> Возовоз</label>

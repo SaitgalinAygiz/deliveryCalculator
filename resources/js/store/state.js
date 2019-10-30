@@ -1,5 +1,6 @@
 let state = {
-    results: []
-}
+    results: [],
+    coord: []
+};
 
 export default state;
