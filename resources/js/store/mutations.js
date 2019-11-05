@@ -16,6 +16,17 @@ const mutations = {
         state.coord = [];
         state.coord.unshift(coord.data);
     },
+    CREATE_TRACKING_RESULT(state, trackingResult){
+        state.trackingResults = [];
+
+        if (trackingResult.data === 'no results') {
+            alert('Нет результатов! Обратите внимание на номер отслеживания');
+        } else {
+            console.log(trackingResult.data);
+        }
+
+
+    },
     FETCH_COORDS(state) {
         console.log(state.coord);
         return state.coord

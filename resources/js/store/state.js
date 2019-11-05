@@ -1,6 +1,7 @@
 let state = {
     results: [],
-    coord: []
+    coord: [],
+    trackingResults: []
 };
 
 export default state;

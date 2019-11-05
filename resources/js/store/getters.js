@@ -5,6 +5,9 @@ let getters = {
 
     coord: state => {
         return state.coord
+    },
+    trackingResults: state => {
+        return state.trackingResults
     }
 };
 

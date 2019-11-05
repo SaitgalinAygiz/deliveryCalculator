@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiHomeController;
+use App\Http\Controllers\ApiCalcController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +15,6 @@ use App\Http\Controllers\ApiHomeController;
 */
 
 
-Route::post('calculate', 'ApiHomeController@calculate');
+Route::post('calculate', 'ApiCalcController@calculate');
 Route::post('coordinates', 'ApiGeoController@coordinates');
+Route::post('tracking', 'ApiTrackingController@tracking');

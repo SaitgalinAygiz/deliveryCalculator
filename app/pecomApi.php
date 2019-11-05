@@ -119,6 +119,7 @@ class pecomApi
 
         $responseBranchesDecode = json_decode($responseBranches);
 
+
         $coords = [];
         $allCoords = [];
 
@@ -126,15 +127,12 @@ class pecomApi
             if ($cityId == $branch->bitrixId) {
                 foreach ($branch->divisions as $division) {
                     foreach ($division->warehouses as $warehouse) {
-                        if ($warehouse->isWarehouseAcceptsFreights == true) {
-                            $explodeResults = explode(',', $warehouse->coordinates);
-                            array_push($coords, (float)$explodeResults['0'], (float)$explodeResults['1']);
-                            array_push($allCoords, $coords);
-
-                            $coords = [];
-                        }
+                        $explodeResults = explode(',', $warehouse->coordinates);
+                        array_push($coords, (float)$explodeResults['0'], (float)$explodeResults['1']);
                     }
+                    array_push($allCoords, $coords);
 
+                    $coords = [];
                 }
             }
         }

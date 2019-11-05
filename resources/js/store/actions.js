@@ -2,18 +2,26 @@ let actions = {
     createResult({commit}, result) {
 
 
-        axios.post('/api/calculate/', result)
+        axios.post('/api/calculate', result)
             .then(res => {
                     commit('CREATE_RESULT', res);
             }).catch(err => {
             console.log(err)
         });
-        axios.post('/api/coordinates/', result)
+        axios.post('/api/coordinates', result)
             .then(res => {
                     commit('CREATE_COORDS', res);
             }).catch(err => {
                 console.log(err)
         })
+    },
+    createTrackingResult({commit}, trackingNumber){
+        axios.post('/api/tracking', trackingNumber)
+            .then(res => {
+                commit('CREATE_TRACKING_RESULT', res);
+            }).catch(err => {
+                console.log(err)
+        });
     },
     fetchResult({commit}) {
         commit('FETCH_RESULT');

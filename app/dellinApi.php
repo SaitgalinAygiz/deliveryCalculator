@@ -79,7 +79,7 @@ class dellinApi
 
             if ($cityId == $city->code) {
                 foreach ($city->terminals->terminal as $terminal) {
-                    if ($terminal->isPVZ == true) {
+
                         array_push($coords, (float)$terminal->latitude, (float)$terminal->longitude);
                         array_push($allCoords, $coords);
                         $coords = [];
@@ -87,7 +87,7 @@ class dellinApi
                 }
 
             }
-        }
+
 
 
 

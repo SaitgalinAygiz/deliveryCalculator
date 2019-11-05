@@ -4,12 +4,16 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import './bootstrap';
+
 require('uikit/dist/js/uikit.min');
 window.Vue = require('vue');
 
 import store from './store/index';
 import YmapPlugin from 'vue-yandex-maps'
+import routes from './routes';
+import VueRouter from 'vue-router';
+
 
 const settings = {
     apiKey: '8ebea8f7-96e8-48de-b0b7-83d722db9b86',
@@ -19,6 +23,7 @@ const settings = {
 };
 
 Vue.use(YmapPlugin, settings);
+Vue.use(VueRouter);
 
 
 
@@ -36,6 +41,7 @@ Vue.use(YmapPlugin, settings);
 Vue.component('input-calc', require('./components/InputCalc.vue').default);
 Vue.component('results', require('./components/Results.vue').default);
 Vue.component('delivery-points-map', require('./components/DeliveryPointsMap.vue').default);
+Vue.component('input-tracking', require('./components/InputTracking.vue').default);
 
 
 Object.defineProperty(Vue.prototype, '$bus',{
@@ -51,10 +57,11 @@ Object.defineProperty(Vue.prototype, '$bus',{
  */
 var bus = new Vue({}); // This empty Vue model will serve as our event bus.
 
-const app = new Vue({
+new Vue({
     el: '#app',
     data: {
         bus: new Vue({})
     },
-    store
+    store,
+    router: routes,
 });

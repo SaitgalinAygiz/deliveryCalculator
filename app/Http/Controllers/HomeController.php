@@ -24,18 +24,24 @@ class HomeController extends Controller
     public function index()
     {
 
+
+
         /*
 
-        $cityTitle = 'Москва';
+        $cityTitle = '254523523';
 
-        $yandexGeoApi = new yandexGeoApi();
+        $gtdApi = new gtdApi();
 
-        $results = $yandexGeoApi->coords($cityTitle);
+        $results = $gtdApi->getTrackingStatus($cityTitle);
+
+
 
 
         dd($results);
 
+
         */
+
 
 
 

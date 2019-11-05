@@ -20,7 +20,14 @@ class gtdApi
                 'geography_city_id' => $cityId
             ]
         ];
+    }
 
+    private function trackingStatusParams($cargoNumber) {
+        return [
+            'json' => [
+                'cargo_number' => $cargoNumber
+            ]
+        ];
     }
 
     private function priceParams() {
@@ -58,6 +65,28 @@ class gtdApi
         ]);
 
     }
+
+    public function getTrackingStatus($cargoNumber) {
+
+        $responseTracking = $this->client->post('https://capi.gtdel.com/1.0/order/status/get', $this->trackingStatusParams($cargoNumber))->getBody();
+
+        $responseDecodeTracking = json_decode($responseTracking);
+
+
+        $cityFrom = $this->getCityId($responseDecodeTracking->from);
+        $cityTo = $this->getCityId($responseDecodeTracking->to);
+
+        $results = $responseDecodeTracking;
+
+        $results->cityFrom = $cityFrom;
+        $results->cityTo = $cityTo;
+
+        $results->status = $responseDecodeTracking->status;
+
+        return $results;
+
+    }
+
 
     public function getBranchCoords($cityId) {
 

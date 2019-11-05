@@ -15,7 +15,7 @@ use App\pecomApi;
 use App\vozovozApi;
 use Illuminate\Http\Request;
 
-class ApiHomeController extends Controller
+class ApiCalcController extends Controller
 {
     public function calculate(Request $request) {
 
