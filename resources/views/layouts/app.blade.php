@@ -16,7 +16,7 @@
 <body  >
 
 
-<div    class="uk-padding-large  uk-grid uk-height-viewport uk-background-secondary" uk-grid>
+<div class="uk-padding-large uk-grid uk-background-secondary uk-padding-remove-bottom"  style="zoom: 90%;" uk-grid>
 
 
         <div class="uk-flex-top uk-grid-item-match uk-width-1-6" style="position: fixed">
@@ -33,7 +33,7 @@
 
 
 
-        <div class="uk-grid-item-match uk-flex-top uk-width-2-3  uk-align-center" style="margin-top: 0px;" >
+        <div class="uk-grid-item-match uk-flex-top uk-width-2-3  uk-align-center uk-height-viewport" style="margin-top: 0px; margin-bottom: 1.8%;" >
 
             <main id="app">
 

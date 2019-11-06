@@ -88,9 +88,6 @@ class dellinApi
 
             }
 
-
-
-
         return $allCoords;
 
 
@@ -100,9 +97,6 @@ class dellinApi
     public function getCityId($cityTitle) {
 
         $citiesResponse = $this->client->post('https://api.dellin.ru/v2/public/kladr.json', $this->cityParams($cityTitle))->getBody()->getContents();
-
-
-
 
         $citiesResponse = json_decode($citiesResponse);
 

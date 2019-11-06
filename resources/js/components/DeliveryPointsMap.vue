@@ -45,11 +45,12 @@
         methods: {
             markerIcon(company) {
                 return {
+                    layout: 'islands#redIcon',
                     imageSize: [43, 43],
                     imageOffset: [0, 0],
                     contentOffset: [0, 15],
                     content: company,
-                    contentLayout: '<div class="polygon_layout">$[properties.iconContent]</div>'
+
                 }
             }
         },

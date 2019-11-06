@@ -15,9 +15,7 @@ class pecomApi
 
     private function getCityParams($cityTitle) {
 
-        if ($cityTitle == 'Москва') {
-            $cityTitle = 'Москва Восток';
-        }
+
 
         if ($cityTitle == 'Краснодар') {
             $cityTitle = 'КрасноДАР';
@@ -51,6 +49,7 @@ class pecomApi
                     'isOpenCarReceiver' => false,
                     'receiverDistanceType' => 0,
                     'isHyperMarket' => false,
+                'calcDate' => "2019-11-21",
                     'isInsurance' => false,
                     'isPickUp' => false,
                     'isDelivery' => false,
@@ -91,19 +90,10 @@ class pecomApi
 
     public function getCityId($cityTitle) {
 
-        $citiesResponse = $this->client->post('https://kabinet.pecom.ru/api/v1/branches/findbytitle/', $this->getCityParams($cityTitle))->getBody()->getContents();
 
-        $citiesResponseDecode = json_decode($citiesResponse);
+        $city = PecomCity::where('city_title', $cityTitle)->firstOrFail();
 
-        if (empty($citiesResponseDecode->items['0']->branchId)) {
-            return 'no results';
-        }
-
-
-
-        $cityId = $citiesResponseDecode->items['0']->branchId;
-
-
+        $cityId = $city->bitrix_id;
 
         if (!empty($cityId)) {
             return $cityId;
@@ -115,26 +105,17 @@ class pecomApi
 
     public function getBranchCoords($cityId) {
 
-        $responseBranches =  $this->client->post('https://kabinet.pecom.ru/api/v1/branches/all/')->getBody()->getContents();
+        $city = PecomCity::where('bitrix_id', $cityId)->firstOrFail();
 
-        $responseBranchesDecode = json_decode($responseBranches);
-
+        $cityCoords = $city->coords()->get();
 
         $coords = [];
         $allCoords = [];
 
-        foreach ($responseBranchesDecode->branches as $branch) {
-            if ($cityId == $branch->bitrixId) {
-                foreach ($branch->divisions as $division) {
-                    foreach ($division->warehouses as $warehouse) {
-                        $explodeResults = explode(',', $warehouse->coordinates);
-                        array_push($coords, (float)$explodeResults['0'], (float)$explodeResults['1']);
-                    }
-                    array_push($allCoords, $coords);
-
-                    $coords = [];
-                }
-            }
+        foreach ($cityCoords as $cityCoord) {
+            array_push($coords, $cityCoord->address_longitude, $cityCoord->address_latitude);
+            array_push($allCoords, $coords);
+            $coords = [];
         }
 
 

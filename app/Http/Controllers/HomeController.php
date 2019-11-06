@@ -24,28 +24,27 @@ class HomeController extends Controller
     public function index()
     {
 
-
-
         /*
 
-        $cityTitle = '254523523';
-
-        $gtdApi = new gtdApi();
-
-        $results = $gtdApi->getTrackingStatus($cityTitle);
 
 
 
+        $cityFrom = 'Санкт-Петербург';
+        $cityTo = 'Уфа';
 
-        dd($results);
+        $pecomApi = new dellinApi();
+
+        $cityFromId = $pecomApi->getCityId($cityFrom);
+
+        $cityToId = $pecomApi->getCityId($cityTo);
+
+        $results = $pecomApi->price($cityFromId, $cityToId, 1, 100, 100, 100);
 
 
         */
 
-
-
-
         return view('welcome');
+
     }
 
 

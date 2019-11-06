@@ -1889,11 +1889,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     markerIcon: function markerIcon(company) {
       return {
+        layout: 'islands#redIcon',
         imageSize: [43, 43],
         imageOffset: [0, 0],
         contentOffset: [0, 15],
-        content: company,
-        contentLayout: '<div class="polygon_layout">$[properties.iconContent]</div>'
+        content: company
       };
     }
   },
@@ -50914,7 +50914,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" ПЭК (долго отвечает) ")
+              _vm._v(" ПЭК  ")
             ]),
             _vm._v(" "),
             _c("label", [
@@ -51580,7 +51580,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "uk-heading-small ", attrs: { id: "calc-heading" } },
-        [_vm._v("\n        Отслеживание\n    ")]
+        [_vm._v("\n        Отслеживание (Временно недоступно)\n    ")]
       ),
       _vm._v(" "),
       _c("input-tracking")

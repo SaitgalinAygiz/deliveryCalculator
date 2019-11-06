@@ -5,7 +5,7 @@
     <div class="uk-background-default uk-padding-large ">
 
         <div id="calc-heading" class="uk-heading-small ">
-            Отслеживание
+            Отслеживание (Временно недоступно)
         </div>
 
 

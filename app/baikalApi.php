@@ -76,6 +76,22 @@ class baikalApi
 
     }
 
+    public function getTrackingStatus($cargoNumber) {
+
+        $responseTracking = $this->client->get('https://api.baikalsr.ru/v1/tracking?number=', $cargoNumber)->getBody()->getContents();
+
+        $responseTrackingDecode = json_decode($responseTracking);
+
+        $results = $responseTrackingDecode;
+
+        $results->cityFrom = $responseTrackingDecode->departure;
+        $results->cityTo = $responseTrackingDecode->destination;
+        $results->status = $responseTrackingDecode->status;
+
+
+
+    }
+
     public function getBranchCoords($cityId) {
 
         $responseBranches = $this->client->get('https://api.baikalsr.ru/v1/affiliate/find?guid='.$cityId)->getBody()->getContents();

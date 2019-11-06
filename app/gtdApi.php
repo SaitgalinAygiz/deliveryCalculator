@@ -68,7 +68,7 @@ class gtdApi
 
     public function getTrackingStatus($cargoNumber) {
 
-        $responseTracking = $this->client->post('https://capi.gtdel.com/1.0/order/status/get', $this->trackingStatusParams($cargoNumber))->getBody();
+        $responseTracking = $this->client->post('https://capi.gtdel.com/1.0/order/status/get', $this->trackingStatusParams($cargoNumber))->getBody()->getContents();
 
         $responseDecodeTracking = json_decode($responseTracking);
 
