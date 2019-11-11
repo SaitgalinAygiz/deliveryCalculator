@@ -72,16 +72,17 @@ class gtdApi
 
         $responseDecodeTracking = json_decode($responseTracking);
 
+        //$cityFrom = $this->getCityId($responseDecodeTracking->from);
+        //$cityTo = $this->getCityId($responseDecodeTracking->to);
 
-        $cityFrom = $this->getCityId($responseDecodeTracking->from);
-        $cityTo = $this->getCityId($responseDecodeTracking->to);
 
         $results = $responseDecodeTracking;
 
-        $results->cityFrom = $cityFrom;
-        $results->cityTo = $cityTo;
-
+        $results->cityFrom = $responseDecodeTracking->from;
+        $results->cityTo = $responseDecodeTracking->to;
         $results->status = $responseDecodeTracking->status;
+
+
 
         return $results;
 

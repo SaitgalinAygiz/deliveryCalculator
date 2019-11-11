@@ -15,8 +15,10 @@ let actions = {
                 console.log(err)
         })
     },
-    createTrackingResult({commit}, trackingNumber){
-        axios.post('/api/tracking', trackingNumber)
+
+    createTrackingResult({commit}, tracking){
+
+        axios.post('/api/tracking', tracking)
             .then(res => {
                 commit('CREATE_TRACKING_RESULT', res);
             }).catch(err => {
@@ -28,6 +30,9 @@ let actions = {
     },
     fetchCoords({commit}) {
         commit('FETCH_COORDS');
+    },
+    fetchTrackingResult({commit}) {
+        commit('FETCH_TRACKING_RESULT');
     }
 };
 

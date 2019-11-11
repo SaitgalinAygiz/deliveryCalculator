@@ -2092,11 +2092,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InputTracking",
   data: function data() {
     return {
-      trackingNumber: ''
+      tracking: {
+        trackingNumber: 'LO215796144CN'
+      }
     };
   },
   computed: {
@@ -2105,8 +2109,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    createTrackingResult: function createTrackingResult(trackingNumber) {
-      this.$store.dispatch('createTrackingResult', trackingNumber);
+    createTrackingResult: function createTrackingResult(tracking) {
+      this.$store.dispatch('createTrackingResult', tracking);
     }
   }
 });
@@ -2228,6 +2232,86 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TrackingResults.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TrackingResults.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "TrackingResults",
+  mounted: function mounted() {
+    this.$store.dispatch('fetchTrackingResult');
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['trackingResults']), {
+    hideResults: function hideResults() {
+      return this.trackingResults.sender !== undefined;
+    }
+  })
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Calculator.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Calculator.vue?vue&type=script&lang=js& ***!
@@ -2301,6 +2385,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_TrackingResults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/TrackingResults */ "./resources/js/components/TrackingResults.vue");
 //
 //
 //
@@ -2322,8 +2407,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Tracking",
+  components: {
+    TrackingResults: _components_TrackingResults__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   beforeCreate: function beforeCreate() {
     document.getElementById("tracking-link").classList.remove('uk-card-default');
     document.getElementById("tracking-link").classList.add('uk-card-primary');
@@ -50522,7 +50615,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "yandex-map",
-        { attrs: { coords: this.coords, zoom: 12 } },
+        { attrs: { coords: this.coords, zoom: 11 } },
         [
           _vm._l(_vm.results, function(result) {
             return _vm._l(result.branches, function(branch) {
@@ -51314,7 +51407,7 @@ var render = function() {
       attrs: { method: "POST", action: "javascript:void(0);" },
       on: {
         submit: function($event) {
-          return _vm.createTrackingResult(_vm.trackingNumber)
+          return _vm.createTrackingResult(_vm.tracking)
         }
       }
     },
@@ -51333,8 +51426,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.trackingNumber,
-                    expression: "trackingNumber"
+                    value: _vm.tracking.trackingNumber,
+                    expression: "tracking.trackingNumber"
                   }
                 ],
                 staticClass: "uk-input uk-form-width-large",
@@ -51343,13 +51436,17 @@ var render = function() {
                   type: "text",
                   placeholder: "Номер отслеживания"
                 },
-                domProps: { value: _vm.trackingNumber },
+                domProps: { value: _vm.tracking.trackingNumber },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.trackingNumber = $event.target.value
+                    _vm.$set(
+                      _vm.tracking,
+                      "trackingNumber",
+                      $event.target.value
+                    )
                   }
                 }
               }),
@@ -51363,7 +51460,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.createTrackingResult(_vm.trackingNumber)
+                      return _vm.createTrackingResult(_vm.tracking)
                     }
                   }
                 },
@@ -51408,7 +51505,7 @@ var render = function() {
           expression: "viewLoader"
         }
       ],
-      attrs: { "uk-spinner": "ratio: 2" }
+      attrs: { "uk-spinner": "ratio: 1" }
     }),
     _vm._v(" "),
     _c(
@@ -51509,6 +51606,135 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.hideResults,
+          expression: "hideResults"
+        }
+      ]
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "uk-section uk-section-secondary uk-margin-medium-top" },
+        [
+          _c("div", { staticClass: "uk-container" }, [
+            _c("h3", [
+              _vm._v("Кому: " + _vm._s(_vm.trackingResults.recepient))
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "uk-grid-match uk-child-width-1-3@m",
+                attrs: { "uk-grid": "" }
+              },
+              [
+                _c("div", [
+                  _c("p", [
+                    _vm._v(
+                      "Куда: " +
+                        _vm._s(_vm.trackingResults.whereToCity) +
+                        ", " +
+                        _vm._s(_vm.trackingResults.whereToIndex)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("p", [
+                    _vm._v(
+                      "Масса посылки: " +
+                        _vm._s(_vm.trackingResults.weight) +
+                        " г"
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("p", [
+                    _vm._v("От кого: " + _vm._s(_vm.trackingResults.sender))
+                  ])
+                ])
+              ]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "table",
+        {
+          staticClass:
+            "uk-table uk-table-large uk-table-divider  uk-table-hover "
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.trackingResults.movements, function(movement) {
+              return _c("tr", [
+                _c("td", [_vm._v(_vm._s(movement.operationDate))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(movement.operationAddress))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(movement.operationIndex))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(movement.operationName) + " ")])
+              ])
+            }),
+            0
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "uk-width-1-6" }, [_vm._v("Дата")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "uk-width-1-6" }, [_vm._v("Адрес")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "uk-width-1-6" }, [_vm._v("Индекс")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "uk-width-1-3" }, [_vm._v("Название")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Calculator.vue?vue&type=template&id=06784f3e&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Calculator.vue?vue&type=template&id=06784f3e&scoped=true& ***!
@@ -51580,10 +51806,12 @@ var render = function() {
       _c(
         "div",
         { staticClass: "uk-heading-small ", attrs: { id: "calc-heading" } },
-        [_vm._v("\n        Отслеживание (Временно недоступно)\n    ")]
+        [_vm._v("\n        Отслеживание\n    ")]
       ),
       _vm._v(" "),
-      _c("input-tracking")
+      _c("input-tracking"),
+      _vm._v(" "),
+      _c("tracking-results")
     ],
     1
   )
@@ -67724,6 +67952,7 @@ Vue.component('input-calc', __webpack_require__(/*! ./components/InputCalc.vue *
 Vue.component('results', __webpack_require__(/*! ./components/Results.vue */ "./resources/js/components/Results.vue")["default"]);
 Vue.component('delivery-points-map', __webpack_require__(/*! ./components/DeliveryPointsMap.vue */ "./resources/js/components/DeliveryPointsMap.vue")["default"]);
 Vue.component('input-tracking', __webpack_require__(/*! ./components/InputTracking.vue */ "./resources/js/components/InputTracking.vue")["default"]);
+Vue.component('tracking-results', __webpack_require__(/*! ./components/TrackingResults.vue */ "./resources/js/components/TrackingResults.vue")["default"]);
 Object.defineProperty(Vue.prototype, '$bus', {
   get: function get() {
     return this.$root.bus;
@@ -68111,6 +68340,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/TrackingResults.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/TrackingResults.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TrackingResults_vue_vue_type_template_id_414a5e24_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true& */ "./resources/js/components/TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true&");
+/* harmony import */ var _TrackingResults_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TrackingResults.vue?vue&type=script&lang=js& */ "./resources/js/components/TrackingResults.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TrackingResults_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TrackingResults_vue_vue_type_template_id_414a5e24_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TrackingResults_vue_vue_type_template_id_414a5e24_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "414a5e24",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/TrackingResults.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/TrackingResults.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/TrackingResults.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackingResults_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TrackingResults.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TrackingResults.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackingResults_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackingResults_vue_vue_type_template_id_414a5e24_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TrackingResults.vue?vue&type=template&id=414a5e24&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackingResults_vue_vue_type_template_id_414a5e24_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackingResults_vue_vue_type_template_id_414a5e24_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -68160,9 +68458,9 @@ var actions = {
       console.log(err);
     });
   },
-  createTrackingResult: function createTrackingResult(_ref2, trackingNumber) {
+  createTrackingResult: function createTrackingResult(_ref2, tracking) {
     var commit = _ref2.commit;
-    axios.post('/api/tracking', trackingNumber).then(function (res) {
+    axios.post('/api/tracking', tracking).then(function (res) {
       commit('CREATE_TRACKING_RESULT', res);
     })["catch"](function (err) {
       console.log(err);
@@ -68175,6 +68473,10 @@ var actions = {
   fetchCoords: function fetchCoords(_ref4) {
     var commit = _ref4.commit;
     commit('FETCH_COORDS');
+  },
+  fetchTrackingResult: function fetchTrackingResult(_ref5) {
+    var commit = _ref5.commit;
+    commit('FETCH_TRACKING_RESULT');
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (actions);
@@ -68270,8 +68572,11 @@ var mutations = {
     if (trackingResult.data === 'no results') {
       alert('Нет результатов! Обратите внимание на номер отслеживания');
     } else {
-      console.log(trackingResult.data);
+      state.trackingResults = trackingResult.data.results;
     }
+  },
+  FETCH_TRACKING_RESULT: function FETCH_TRACKING_RESULT(state) {
+    return state.trackingResults;
   },
   FETCH_COORDS: function FETCH_COORDS(state) {
     console.log(state.coord);

@@ -101,6 +101,8 @@ class dellinApi
         $citiesResponse = json_decode($citiesResponse);
 
 
+
+
         if (!empty($citiesResponse->cities[0])) {
             return $citiesResponse->cities[0]->code;
         } else {

@@ -42,6 +42,7 @@ Vue.component('input-calc', require('./components/InputCalc.vue').default);
 Vue.component('results', require('./components/Results.vue').default);
 Vue.component('delivery-points-map', require('./components/DeliveryPointsMap.vue').default);
 Vue.component('input-tracking', require('./components/InputTracking.vue').default);
+Vue.component('tracking-results', require('./components/TrackingResults.vue').default);
 
 
 Object.defineProperty(Vue.prototype, '$bus',{

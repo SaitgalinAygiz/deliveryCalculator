@@ -22,10 +22,11 @@ const mutations = {
         if (trackingResult.data === 'no results') {
             alert('Нет результатов! Обратите внимание на номер отслеживания');
         } else {
-            console.log(trackingResult.data);
+            state.trackingResults = trackingResult.data.results;
         }
-
-
+    },
+    FETCH_TRACKING_RESULT(state){
+        return state.trackingResults
     },
     FETCH_COORDS(state) {
         console.log(state.coord);

@@ -7,7 +7,7 @@
 
         <yandex-map
             :coords=this.coords
-            :zoom="12"
+            :zoom="11"
         >
 
             <template v-for="result in results">

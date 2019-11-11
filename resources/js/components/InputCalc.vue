@@ -71,7 +71,7 @@
             </fieldset>
 
             <div class="uk-flex uk-flex-center">
-                <button  :disabled="!isValid"  @click.prevent="createResult(result)" class="uk-margin-large-top uk-button   uk-button-primary" >Рассчитать стоимость доставки</button>
+                <button :disabled="!isValid"  @click.prevent="createResult(result)" class="uk-margin-large-top uk-button   uk-button-primary" >Рассчитать стоимость доставки</button>
 
                 <a id="bottomLink" href="#bottomScroll" uk-scroll></a>
             </div>

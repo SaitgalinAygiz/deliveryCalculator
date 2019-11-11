@@ -5,13 +5,17 @@
     <div class="uk-background-default uk-padding-large ">
 
         <div id="calc-heading" class="uk-heading-small ">
-            Отслеживание (Временно недоступно)
+            Отслеживание
         </div>
 
 
         <input-tracking>
 
         </input-tracking>
+
+        <tracking-results>
+
+        </tracking-results>
 
 
     </div>
@@ -20,9 +24,10 @@
 </template>
 
 <script>
+    import TrackingResults from "../components/TrackingResults";
     export default {
         name: "Tracking",
-
+        components: {TrackingResults},
         beforeCreate() {
             document.getElementById("tracking-link").classList.remove('uk-card-default');
             document.getElementById("tracking-link").classList.add('uk-card-primary');
