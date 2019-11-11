@@ -46,6 +46,10 @@
             createTrackingResult(tracking) {
                 this.$store.dispatch('createTrackingResult', tracking);
 
+                this.$bus.$emit('sendTrackingInput', {
+
+                });
+
             }
         }
     }

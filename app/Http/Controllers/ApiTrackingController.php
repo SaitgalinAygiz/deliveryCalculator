@@ -17,6 +17,16 @@ class ApiTrackingController extends Controller
         $trackingNumber = $request->get('trackingNumber');
 
 
+        //GTD
+        $gtdApi = new gtdApi();
+
+        $results = $gtdApi->getTrackingStatus($trackingNumber);
+
+        if ($results !== 'no results') {
+            $response['results'] = $results;
+        } else {
+            $results = null;
+        }
 
         //ПОЧТА
         $pochta = new pochtaApi();

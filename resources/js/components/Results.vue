@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-show="viewLoader" uk-spinner="ratio: 1" ></div>
+    <div class="uk-margin-small-top" v-show="viewLoader" uk-spinner="ratio: 1" ></div>
 
     <div v-show="hideResults" class="uk-flex@s uk-flex-center uk-padding-large  uk-background-default uk-padding-remove-top  uk-table-middle">
 

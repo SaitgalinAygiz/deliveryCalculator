@@ -60,7 +60,6 @@ class gtdApi
                 'Accept' => 'application/json',
                 'Authorization' => ['Bearer '.$credentials],
 
-
             ],
         ]);
 
@@ -72,15 +71,50 @@ class gtdApi
 
         $responseDecodeTracking = json_decode($responseTracking);
 
-        //$cityFrom = $this->getCityId($responseDecodeTracking->from);
-        //$cityTo = $this->getCityId($responseDecodeTracking->to);
+
+        $results = (array) $responseDecodeTracking;
+
+        if (empty($responseDecodeTracking->from)) {
+            return 'no results';
+        }
+
+        $movements = [];
+        $movement = [];
 
 
-        $results = $responseDecodeTracking;
+        foreach ($results['status'] as $result) {
+            foreach ($movements as $movement) {
+                if(!empty($result->name)){
+                    $movement['operationName'] = $result->name;
+                }
 
-        $results->cityFrom = $responseDecodeTracking->from;
-        $results->cityTo = $responseDecodeTracking->to;
-        $results->status = $responseDecodeTracking->status;
+                if(!empty($result->date)) {
+                    $operDate = $result->date . $result->time;
+                    $date = new \DateTime($operDate);
+                    $movement['operationDate'] = $date->format('Y-m-d H:i:s');
+                }
+
+            }
+            array_push($movements, $movement);
+
+        }
+
+        $firstArrayElement = array_shift($movements);
+
+
+
+        $cityFrom = $this->getCityTitle($responseDecodeTracking->from);
+        $cityTo = $this->getCityTitle($responseDecodeTracking->to);
+
+
+        $results['whereToIndex'] = $cityFrom;
+        $results['weight'] = '';
+        $results['sender'] = '';
+        $results['historyRecord'] = 'hm';
+        $results['whereToCity'] = $cityTo;
+        $results['recepient'] = $responseDecodeTracking->address;
+        $results['movements'] = $movements;
+
 
 
 
@@ -119,6 +153,25 @@ class gtdApi
 
 
         return $allCoords;
+
+    }
+
+    public function getCityTitle($cityId) {
+        $citiesResponse = $this->client->post('https://capi.gtdel.com/1.0/tdd/city/get-list')->getBody()->getContents();
+
+        $citiesResponseDecode = json_decode($citiesResponse);
+
+        foreach ($citiesResponseDecode as $city) {
+            if ($cityId == $city->code) {
+                $cityTitle = $city->name;
+            }
+        }
+
+        if (empty($cityTitle)) {
+            return 'no results';
+        }
+
+        return $cityTitle;
 
     }
 

@@ -2111,6 +2111,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     createTrackingResult: function createTrackingResult(tracking) {
       this.$store.dispatch('createTrackingResult', tracking);
+      this.$bus.$emit('sendTrackingInput', {});
     }
   }
 });
@@ -2297,14 +2298,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TrackingResults",
+  data: function data() {
+    return {
+      viewLoader: false
+    };
+  },
   mounted: function mounted() {
+    var _this = this;
+
     this.$store.dispatch('fetchTrackingResult');
+    this.$bus.$on('sendTrackingInput', function () {
+      _this.viewLoader = true;
+    });
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['trackingResults']), {
     hideResults: function hideResults() {
+      this.viewLoader = false;
       return this.trackingResults.sender !== undefined;
     }
   })
@@ -51505,6 +51523,7 @@ var render = function() {
           expression: "viewLoader"
         }
       ],
+      staticClass: "uk-margin-small-top",
       attrs: { "uk-spinner": "ratio: 1" }
     }),
     _vm._v(" "),
@@ -51621,95 +51640,111 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
+  return _c("div", [
+    _c("div", {
       directives: [
         {
           name: "show",
           rawName: "v-show",
-          value: _vm.hideResults,
-          expression: "hideResults"
+          value: _vm.viewLoader,
+          expression: "viewLoader"
         }
-      ]
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "uk-section uk-section-secondary uk-margin-medium-top" },
-        [
-          _c("div", { staticClass: "uk-container" }, [
-            _c("h3", [
-              _vm._v("Кому: " + _vm._s(_vm.trackingResults.recepient))
-            ]),
+      ],
+      attrs: { "uk-spinner": "ratio: 1" }
+    }),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.hideResults,
+            expression: "hideResults"
+          }
+        ]
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "uk-section uk-section-secondary uk-margin-medium-top"
+          },
+          [
+            _c("div", { staticClass: "uk-container" }, [
+              _c("h3", [
+                _vm._v("Кому: " + _vm._s(_vm.trackingResults.recepient))
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "uk-grid-match uk-child-width-1-3@m",
+                  attrs: { "uk-grid": "" }
+                },
+                [
+                  _c("div", [
+                    _c("p", [
+                      _vm._v(
+                        "Куда: " +
+                          _vm._s(_vm.trackingResults.whereToCity) +
+                          ", " +
+                          _vm._s(_vm.trackingResults.whereToIndex)
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("p", [
+                      _vm._v(
+                        "Масса посылки: " +
+                          _vm._s(_vm.trackingResults.weight) +
+                          " "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("p", [
+                      _vm._v("От кого: " + _vm._s(_vm.trackingResults.sender))
+                    ])
+                  ])
+                ]
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "table",
+          {
+            staticClass:
+              "uk-table uk-table-large uk-table-divider  uk-padding-large  uk-padding-remove-top uk-table-hover "
+          },
+          [
+            _vm._m(0),
             _vm._v(" "),
             _c(
-              "div",
-              {
-                staticClass: "uk-grid-match uk-child-width-1-3@m",
-                attrs: { "uk-grid": "" }
-              },
-              [
-                _c("div", [
-                  _c("p", [
-                    _vm._v(
-                      "Куда: " +
-                        _vm._s(_vm.trackingResults.whereToCity) +
-                        ", " +
-                        _vm._s(_vm.trackingResults.whereToIndex)
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c("p", [
-                    _vm._v(
-                      "Масса посылки: " +
-                        _vm._s(_vm.trackingResults.weight) +
-                        " г"
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c("p", [
-                    _vm._v("От кого: " + _vm._s(_vm.trackingResults.sender))
-                  ])
+              "tbody",
+              _vm._l(_vm.trackingResults.movements, function(movement) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(movement.operationDate))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(movement.operationAddress))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(movement.operationIndex))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(movement.operationName) + " ")])
                 ])
-              ]
+              }),
+              0
             )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        {
-          staticClass:
-            "uk-table uk-table-large uk-table-divider  uk-table-hover "
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.trackingResults.movements, function(movement) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(movement.operationDate))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(movement.operationAddress))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(movement.operationIndex))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(movement.operationName) + " ")])
-              ])
-            }),
-            0
-          )
-        ]
-      )
-    ]
-  )
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -68573,6 +68608,9 @@ var mutations = {
       alert('Нет результатов! Обратите внимание на номер отслеживания');
     } else {
       state.trackingResults = trackingResult.data.results;
+      console.log(state.trackingResults);
+      console.log(state.trackingResults.movements);
+      console.log(state.trackingResults.recepient);
     }
   },
   FETCH_TRACKING_RESULT: function FETCH_TRACKING_RESULT(state) {

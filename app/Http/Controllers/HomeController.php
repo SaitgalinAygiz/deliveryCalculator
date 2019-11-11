@@ -55,6 +55,7 @@ class HomeController extends Controller
         $gtdApi = new gtdApi();
 
         $trackingNumber = 'МСКЕК40010818306';
+        $trackingNumber = 'КИВВДКИМ-4/0333';
 
         $results = $gtdApi->getTrackingStatus($trackingNumber);
 
@@ -64,6 +65,8 @@ class HomeController extends Controller
         */
 
         /*
+
+
         $trackingNumber = 'МСКЕК40010818306';
 
         //GTD
@@ -73,6 +76,8 @@ class HomeController extends Controller
 
         if ($results !== 'no results') {
             $response['results'] = $results;
+        } else {
+            $results = null;
         }
 
         //ПОЧТА
@@ -85,8 +90,10 @@ class HomeController extends Controller
         }
 
 
-        */
+        dd($response);
 
+
+        */
 
 
         return view('welcome');

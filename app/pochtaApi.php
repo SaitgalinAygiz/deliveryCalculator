@@ -42,7 +42,7 @@ class pochtaApi
         $results->whereToIndex = $results->historyRecord['0']->AddressParameters->DestinationAddress->Index;
         $results->whereToCity = $results->historyRecord['0']->AddressParameters->DestinationAddress->Description;
 
-        $results->weight = $results->historyRecord['0']->ItemParameters->Mass;
+        $results->weight = (string) $results->historyRecord['0']->ItemParameters->Mass . ' г';
 
         $movements = [];
         $movement = [];

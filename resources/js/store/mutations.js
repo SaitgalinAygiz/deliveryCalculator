@@ -23,6 +23,9 @@ const mutations = {
             alert('Нет результатов! Обратите внимание на номер отслеживания');
         } else {
             state.trackingResults = trackingResult.data.results;
+            console.log(state.trackingResults);
+            console.log(state.trackingResults.movements);
+            console.log(state.trackingResults.recepient)
         }
     },
     FETCH_TRACKING_RESULT(state){

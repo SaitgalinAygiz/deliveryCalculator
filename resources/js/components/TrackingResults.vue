@@ -1,5 +1,10 @@
 <template>
-    <div v-show="hideResults" >
+
+    <div>
+
+        <div v-show="viewLoader" uk-spinner="ratio: 1" ></div>
+
+        <div v-show="hideResults" >
         <div class="uk-section uk-section-secondary uk-margin-medium-top">
             <div class="uk-container">
 
@@ -10,7 +15,7 @@
                         <p>Куда: {{ trackingResults.whereToCity }}, {{ trackingResults.whereToIndex }}</p>
                     </div>
                     <div>
-                        <p>Масса посылки: {{ trackingResults.weight }} г</p>
+                        <p>Масса посылки: {{ trackingResults.weight }} </p>
                     </div>
                     <div>
                         <p>От кого: {{ trackingResults.sender }}</p>
@@ -22,7 +27,7 @@
 
         </div>
 
-    <table class="uk-table uk-table-large uk-table-divider  uk-table-hover ">
+    <table class="uk-table uk-table-large uk-table-divider  uk-padding-large  uk-padding-remove-top uk-table-hover ">
         <thead>
         <tr>
             <th class="uk-width-1-6">Дата</th>
@@ -45,6 +50,7 @@
         </tbody>
     </table>
     </div>
+    </div>
 </template>
 
 <script>
@@ -53,8 +59,21 @@
     export default {
         name: "TrackingResults",
 
+        data() {
+
+            return {
+                viewLoader: false,
+            }
+
+        },
+
         mounted() {
             this.$store.dispatch('fetchTrackingResult');
+
+            this.$bus.$on('sendTrackingInput', () => {
+                this.viewLoader = true;
+            });
+
         },
 
         computed: {
@@ -63,6 +82,8 @@
             ]),
 
             hideResults() {
+
+                this.viewLoader = false;
 
                 return this.trackingResults.sender !== undefined;
             }
