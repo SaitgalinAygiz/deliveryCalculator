@@ -21,13 +21,13 @@
 
         <div class="uk-flex-top uk-grid-item-match uk-width-1-6" style="position: fixed">
             <a id="api-link" href="/#/"  class=" uk-card uk-card-body uk-card-default uk-link-toggle uk-width-medium" >
-                 <h3 class="uk-card-title"><span id="span-api-link" class="uk-link-heading">API калькулятор</span></h3>
+                 <h3 class="uk-card-title"><span id="span-api-link" class="uk-link-heading">Калькулятор</span></h3>
             </a>
             <a id="tracking-link" href="/#/tracking" class=" uk-card uk-card-body uk-card-default uk-link-toggle uk-width-medium"  >
                 <h3 class="uk-card-title"><span id="span-tracking-link" class="uk-link-heading">Отслеживание</span></h3>
             </a>
             <a id="lk-link" href class=" uk-card uk-card-body uk-card-default uk-link-toggle uk-width-medium"  >
-                <h3 class="uk-card-title"><span class="uk-link-heading">Личный кабинет</span></h3>
+                <h3 class="uk-card-title"><span class="uk-link-heading">Кабинет</span></h3>
             </a>
         </div>
 

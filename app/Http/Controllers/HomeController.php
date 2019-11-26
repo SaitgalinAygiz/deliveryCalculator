@@ -93,6 +93,28 @@ class HomeController extends Controller
         dd($response);
 
 
+
+
+        $cityFrom = 'Москва';
+        $cityTo = 'Уфа';
+        $weight = 1000;
+        $width = 10;
+        $length = 10;
+        $height = 10;
+
+
+        $pochtaApi = new pochtaApi();
+
+        $cityFromNormalize = $pochtaApi->normalizeAddress($cityFrom);
+        $cityToNormalize = $pochtaApi->normalizeAddress($cityTo);
+
+
+        $results = $pochtaApi->price($cityFromNormalize, $cityToNormalize, $weight, $width, $height, $length);
+
+
+
+        dd($results);
+
         */
 
 
